@@ -1,21 +1,14 @@
 {
-  "env": {
-    "node": true,
-    "es2021": true
-  },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["@typescript-eslint"],
+  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+
+  "plugins": ["prettier"],
   "rules": {
     "no-console": "warn",
-    //* Avoid Bugs
     "no-undef": "error",
     "semi": "error",
     "semi-spacing": "error",
+    //allow process.exit()
+    "no-process-exit": "off",
     //* Best Practices
     "eqeqeq": "warn",
     "no-invalid-this": "error",
