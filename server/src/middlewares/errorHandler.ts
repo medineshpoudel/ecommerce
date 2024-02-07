@@ -1,17 +1,17 @@
 import { NextFunction, Response , Request} from "express"
+import {SOMETHING_WENT_WRONG, NOT_FOUND} from "../controllers/staticLists";
 
 
 const notFoundHandler = (req: Request, res: Response, next: NextFunction) => {
-    const error :any= new Error('Not Found');
+    const error :any= new Error(NOT_FOUND);
     error.statusCode = 404
     res.status(404);
     next(error);
 };
 
 const errorHandler = (error: any, req: Request, res: Response, next: NextFunction)=>{
-    console.log("Middleware Error Hadnling");
     const errStatus = error.statusCode || 500;
-    const errMsg = error.message || 'Something went wrong';
+    const errMsg = error.message || SOMETHING_WENT_WRONG;
     res.status(errStatus).json({
         success: false,
         status: errStatus,
