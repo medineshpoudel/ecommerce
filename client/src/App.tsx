@@ -1,43 +1,29 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import type { RootState } from "../app/store";
 import "./App.css";
-import reactLogo from "./assets/react.svg";
-import { increamentByAmount } from "./features/counter/counterSlice";
-import useApp from "./hooks/useApp";
-import viteLogo from "/vite.svg";
+import Header from "./components/header/Header";
+import AppRoutes from "./routes/routes";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
-  const { data } = useApp({ query: "debts" });
-  console.log(data);
-
   return (
-    <>
-      <div className="header">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <Header />
+      <div className="app-content">
+        <BrowserRouter>
+          <Routes>
+            {AppRoutes.map((routeItem) => (
+              <Route
+                key={routeItem.route}
+                path={routeItem.route}
+                element={routeItem.page}
+              />
+            ))}
+          </Routes>
+        </BrowserRouter>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => dispatch(increamentByAmount(2))}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
