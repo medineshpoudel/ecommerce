@@ -1,17 +1,30 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface ButtonProps {
   text: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick: (event: any) => void;
+  onClick?: (event: any) => void;
   rounded?: boolean;
+  type?: any;
+  disabled?: boolean;
+  buttonColor?: string;
 }
 
-const Button = ({ text, rounded = true, onClick }: ButtonProps) => {
+const Button = ({
+  text,
+  rounded = true,
+  onClick,
+  type,
+  disabled,
+  buttonColor,
+}: ButtonProps) => {
   return (
     <button
-      className={`bg-primary text-white ${rounded ?? "rounnded-3xl"}`}
+      className={` ${buttonColor ?? "bg-primary"} text-white ${
+        rounded ?? "rounnded-3xl"
+      } m-1`}
       onClick={onClick}
+      type={type}
+      disabled={disabled}
     >
       {text}
     </button>

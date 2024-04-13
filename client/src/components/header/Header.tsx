@@ -1,7 +1,8 @@
 import { AppName, ContactInfo } from "../../constants/constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-between p-2 shadow-lg sticky h-headerHeight">
       <div className=" font-semibold text-3xl flex-1 pl-2 items-center">
@@ -21,7 +22,12 @@ const Header = () => {
             PRIVACY
           </Link>
         </ul>
-        <button className="bg-primary text-white rounded-3xl">LOGIN</button>
+        <button
+          onClick={() => navigate("/login")}
+          className="bg-primary text-white rounded-3xl"
+        >
+          LOGIN
+        </button>
       </div>
     </div>
   );
