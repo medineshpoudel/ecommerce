@@ -39,6 +39,10 @@ const ProductViewCorners = () => (
 );
 
 const ProductDetailView = ({ product = DummyProduct }: any) => {
+  const onPurchage = () => {
+    console.log("purchageClicked");
+  };
+
   return (
     <div className="flex justify-center items-center h-full relative overflow-hidden">
       <ProductViewCorners />
@@ -49,9 +53,7 @@ const ProductDetailView = ({ product = DummyProduct }: any) => {
           <div className="flex w-full justify-center">
             <Button
               text="Purchage"
-              onClick={() => {
-                console.log("purchaged click");
-              }}
+              onClick={onPurchage}
               style="w-96 items-center"
             ></Button>
           </div>
