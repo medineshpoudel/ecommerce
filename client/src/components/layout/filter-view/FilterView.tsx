@@ -1,5 +1,5 @@
 import SearchBar from "../../search-bar/SearchBar";
-import DetailSection from "../detail-view/DetailView";
+import ProductDetailSection from "../detail-view/ProductDetailSection";
 
 const ProductDummyData = [
   {
@@ -43,12 +43,18 @@ const FilterView = () => {
   return (
     <div className="filter-view p-5">
       <SearchBar />
-      <DetailSection
+      <ProductDetailSection
         title="Best selling products"
         products={ProductDummyData}
       />
-      <DetailSection title="Featured Product" products={ProductDummyData} />
-      <DetailSection title="Deal of the Week" products={ProductDummyData} />
+      <ProductDetailSection
+        title="Featured Product"
+        products={ProductDummyData}
+      />
+      <ProductDetailSection
+        title="Deal of the Week"
+        products={ProductDummyData}
+      />
     </div>
   );
 };

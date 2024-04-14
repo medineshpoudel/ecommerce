@@ -11,6 +11,7 @@ export default {
   theme: {
     colors: {
       primary: "#55c57a",
+      secondary: "#D0D0D0",
       blue: "#1fb6ff",
       pink: "#ff49db",
       orange: "#ff7849",
@@ -19,6 +20,7 @@ export default {
       green: "#13ce66",
       gray: "#273444",
       lightGray: "#f2f5f7",
+
       red: "red",
     },
     fontFamily: {

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate } from "react-router-dom";
 import Card from "../../card/Card";
 
 export interface DetailSectionProps {
@@ -6,9 +7,14 @@ export interface DetailSectionProps {
   products: Array<any>;
 }
 
-const DetailSection = ({ title = "Title", products }: DetailSectionProps) => {
+const ProductDetailSection = ({
+  title = "Title",
+  products,
+}: DetailSectionProps) => {
+  const navigate = useNavigate();
   const onDetailViewCardClick = (itemId: any) => {
     console.log(itemId);
+    navigate("/product-detail");
   };
 
   return (
@@ -25,4 +31,4 @@ const DetailSection = ({ title = "Title", products }: DetailSectionProps) => {
   );
 };
 
-export default DetailSection;
+export default ProductDetailSection;

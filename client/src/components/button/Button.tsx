@@ -7,6 +7,7 @@ export interface ButtonProps {
   type?: any;
   disabled?: boolean;
   buttonColor?: string;
+  style?: string;
 }
 
 const Button = ({
@@ -16,12 +17,13 @@ const Button = ({
   type,
   disabled,
   buttonColor,
+  style,
 }: ButtonProps) => {
   return (
     <button
       className={` ${buttonColor ?? "bg-primary"} text-white ${
         rounded ?? "rounnded-3xl"
-      } m-1`}
+      } m-1 ${style}`}
       onClick={onClick}
       type={type}
       disabled={disabled}
