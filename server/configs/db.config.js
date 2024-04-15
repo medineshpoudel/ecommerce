@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const CONNECTION_STRING =
-  "mongodb+srv://dineshdb:dinesh21219@cluster0.x6xat.mongodb.net/godam";
+const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 const connectDB = async () => {
   try {
