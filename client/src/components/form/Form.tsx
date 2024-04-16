@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import Button from "../button/Button";
 
 export interface FieldProps {
@@ -17,15 +16,9 @@ export interface FormProps {
   formFields: FieldProps[];
   formTitle?: string;
   onSubmit?: any;
-  onCancel?: any;
+  onCancel?: () => void;
   validationSchema?: object;
 }
-const mySchema = Yup.object().shape({
-  title: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-});
 
 const FormComponent = ({
   initialValues = {},
@@ -33,7 +26,7 @@ const FormComponent = ({
   formTitle = "Form",
   onSubmit,
   onCancel,
-  validationSchema = mySchema,
+  validationSchema,
 }: FormProps) => (
   <div className="form-wrapper p-2">
     <div className="form-title">
@@ -49,10 +42,10 @@ const FormComponent = ({
       }}
     >
       {({ isSubmitting }) => (
-        <Form className="form p-2">
+        <Form className="form p-2" encType="multipart/form-data">
           <div className="form-content">
             {formFields.map((field: any) => (
-              <div className="form-field">
+              <div className="form-field" key={field.name}>
                 {field.type === "dropdown" ? (
                   <>
                     <label htmlFor={field.name}>
@@ -65,20 +58,23 @@ const FormComponent = ({
                       as="select"
                       name={field.name}
                       className="field"
-                      disable={field.disabled}
+                      disabled={field.disabled}
+                      key={field.name}
                     >
                       {field.dropdownList.map((list: string) => (
-                        <option value={list}>{list}</option>
+                        <option value={list} key={list}>
+                          {list}
+                        </option>
                       ))}
                     </Field>
                     <ErrorMessage
                       className="text-red"
-                      name={field.type}
+                      name={field.name}
                       component="span"
                     />
                   </>
                 ) : (
-                  <div>
+                  <div key={field.name}>
                     <label htmlFor={field.name} className="font-semibold">
                       {field.label}:
                       <span style={{ fontSize: "0.75rem", marginLeft: "5px" }}>
@@ -91,7 +87,8 @@ const FormComponent = ({
                       name={field.name}
                       placeholder={field.placeholder}
                       className="field border-2 w-full rounded-md my-2 p-1"
-                      disable={field.disabled}
+                      disabled={field.disabled}
+                      key={field.name}
                     />
                     <ErrorMessage
                       name={field.name}
@@ -103,10 +100,8 @@ const FormComponent = ({
               </div>
             ))}
           </div>
-
           <div className="form-action-wrapper">
             <Button text="Submit" type="submit" disabled={isSubmitting} />
-
             <Button text="Cancel" buttonColor="bg-gray" onClick={onCancel} />
           </div>
         </Form>
