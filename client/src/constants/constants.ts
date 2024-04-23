@@ -5,3 +5,7 @@ export const ActionHandlerActions = {
   Update: "Update",
   Delete: "Delete",
 };
+
+export const GodamLocalStorage = {
+  isLoggedIn: "isLoggedIn",
+};

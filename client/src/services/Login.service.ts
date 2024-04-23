@@ -1,24 +1,30 @@
+import { toast } from "react-toastify";
 import BaseService from "./Base.service";
+import { GodamLocalStorage } from "../constants/constants";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 class LoginService extends BaseService {
   static async login(data: any) {
     try {
-      const response = await this.add({ query: "auth/login", data });
-      console.log(response);
+      await this.add({ query: "auth/login", data });
+      localStorage.setItem(GodamLocalStorage.isLoggedIn, "true");
+      window.location.href = "/";
     } catch (error: any) {
-      console.log(error.response.data.error);
+      toast.error(error.message);
     }
   }
 
   static async signup(data: any) {
-    const response = this.add({ query: "auth/signup", data });
-    console.log(response);
-    return response;
+    try {
+      await this.add({ query: "auth/signup", data });
+      localStorage.setItem(GodamLocalStorage.isLoggedIn, "true");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   }
 
-  static async getUserInfo(data: any) {
-    const response = this.get({ query: "user", data });
+  static async getUserInfo() {
+    const response = this.get({ query: "auth/user" });
     return response;
   }
 

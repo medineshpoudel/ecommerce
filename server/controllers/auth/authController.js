@@ -24,7 +24,7 @@ const signUpController = async (req, res, next) => {
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-      throw new Error("User already exists");
+      throw new Error("User with email already exists");
     }
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -88,8 +88,16 @@ const loginController = async (req, res, next) => {
 
     const refreshToken = generateRefreshToken(user);
 
+    // // Create secure cookie with refresh token
+    // res.cookie("jwt", refreshToken, {
+    //   httpOnly: true, // accessible only by the web server
+    //   secure: true, // HTTPS
+    //   sameSite: "None", // cross-site cookie
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match refreshToken expiry
+    // });
+
     // Create secure cookie with refresh token
-    res.cookie("jwt", refreshToken, {
+    res.cookie("jwt", accessToken, {
       httpOnly: true, // accessible only by the web server
       secure: true, // HTTPS
       sameSite: "None", // cross-site cookie
@@ -107,6 +115,15 @@ const loginController = async (req, res, next) => {
   }
 };
 
+const getCurrentLoggedInUser = async (req, res, next) => {
+  try {
+    const currentUser = req.user;
+    res.status(200).json(currentUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const logoutController = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
@@ -119,4 +136,9 @@ const logoutController = async (req, res) => {
   }
 };
 
-module.exports = { loginController, signUpController, logoutController };
+module.exports = {
+  loginController,
+  signUpController,
+  logoutController,
+  getCurrentLoggedInUser,
+};

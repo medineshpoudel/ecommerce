@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
 import SignUpFormFields from "./SignUpFormFields";
-import { RegistrationFormValidationSchema } from "../login/Login";
+import { RegistrationFormValidationSchema } from "../../../validators/LoginValidatos";
 
 const SignUp = () => {
   const navigate = useNavigate();

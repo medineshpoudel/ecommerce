@@ -13,19 +13,16 @@ class BaseService {
   static async apply(query: string, type: string, data: any = null) {
     const axiosConfig: AxiosRequestConfig = {
       method: type,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Bearer `,
-      },
       data,
       url: `http://localhost:8000/${query}`,
+      withCredentials: true,
     };
 
     try {
       const response = await axios(axiosConfig);
       return response;
-    } catch (error) {
-      throw error;
+    } catch (error: any) {
+      throw error.response.data;
     }
   }
   static get = async ({ query, type = "get" }: ApplyActionProps) =>
