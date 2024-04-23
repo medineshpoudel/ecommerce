@@ -6,94 +6,105 @@ const {
   generateRefreshToken,
 } = require("../../utilities/generateToken");
 
-const signUpController = async (req, res) => {
-  const { username, email, password, role } = req.body;
-  if (!username || !email || !password || !role) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ error: "Please enter valid email." });
-  }
+const signUpController = async (req, res, next) => {
+  try {
+    const { username, email, password, role } = req.body;
+    if (!username || !email || !password || !role) {
+      throw new Error("All fields are required");
+    }
+    if (!validator.isEmail(email)) {
+      throw new Error("Please enter a valid email.");
+    }
 
-  if (!validator.isStrongPassword(password)) {
-    return res.status(400).json({
-      error:
-        "Password must contain a number, special character uppercase letter",
+    if (!validator.isStrongPassword(password)) {
+      throw new Error(
+        "Password must contain a number, special character, and uppercase letter"
+      );
+    }
+
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      throw new Error("User already exists");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    const newUser = await User.create({
+      username,
+      email,
+      password: hash,
+      role,
     });
+
+    const accessToken = generateAccessToken(newUser);
+
+    const refreshToken = generateRefreshToken(newUser);
+
+    // Create secure cookie with refresh token
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true, // accessible only by the web server
+      secure: true, // HTTPS
+      sameSite: "None", // cross-site cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match refreshToken expiry
+    });
+
+    res.status(200).json({
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role[0],
+      token: accessToken,
+    });
+  } catch (error) {
+    next(error); // Pass any caught errors to the error handler middleware
   }
-
-  const userExits = await User.findOne({ email });
-  if (userExits) {
-    return res.status(400).json({ error: "User already exists" });
-  }
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-  const newUser = await User.create({ username, email, password: hash, role });
-
-  const accessToken = generateAccessToken(newUser);
-
-  const refreshToken = generateRefreshToken(newUser);
-
-  // Create secure cookie with refresh token
-  res.cookie("jwt", refreshToken, {
-    httpOnly: true, //accessible only by web server
-    secure: true, //https
-    sameSite: "None", //cross-site cookie
-    maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
-  });
-
-  res.status(200).json({
-    username: newUser.username,
-    email: newUser.email,
-    role: newUser.role[0],
-    token: accessToken,
-  });
 };
 
-const loginController = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ error: "Please enter valid email." });
-  }
+const loginController = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      throw new Error("All fields are required");
+    }
+    if (!validator.isEmail(email)) {
+      throw new Error("Please enter a valid email.");
+    }
 
-  if (!validator.isStrongPassword(password)) {
-    return res.status(400).json({
-      error:
-        "Password must contain an uppercase, a special character and a number",
+    if (!validator.isStrongPassword(password)) {
+      throw new Error(
+        "Password must contain an uppercase, a special character, and a number"
+      );
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new Error("Invalid credentials");
+    }
+
+    const accessToken = generateAccessToken(user);
+
+    const refreshToken = generateRefreshToken(user);
+
+    // Create secure cookie with refresh token
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true, // accessible only by the web server
+      secure: true, // HTTPS
+      sameSite: "None", // cross-site cookie
+      maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match refreshToken expiry
     });
+
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      role: user.role[0],
+      token: accessToken,
+    });
+  } catch (error) {
+    next(error); // Pass any caught errors to the error handler middleware
   }
-
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(400).json({ error: "Invalid credentails" });
-  }
-
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) {
-    return res.status(400).json({ error: "Invalid Credentials" });
-  }
-
-  const accessToken = generateAccessToken(user);
-
-  const refreshToken = generateRefreshToken(user);
-
-  // Create secure cookie with refresh token
-  res.cookie("jwt", refreshToken, {
-    httpOnly: true, //accessible only by web server
-    secure: true, //https
-    sameSite: "None", //cross-site cookie
-    maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
-  });
-
-  res.status(200).json({
-    username: user.username,
-    email: user.email,
-    role: user.role[0],
-    token: accessToken,
-  });
 };
 
 const logoutController = async (req, res) => {
@@ -104,7 +115,7 @@ const logoutController = async (req, res) => {
     res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" });
     res.json({ message: "Logged out successfully" });
   } catch (error) {
-    res.status(500).json({ error });
+    next(error);
   }
 };
 
