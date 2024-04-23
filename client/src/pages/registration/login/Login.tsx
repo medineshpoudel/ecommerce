@@ -3,13 +3,14 @@ import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
 import LoginFormFields from "./LoginFormFields";
 import * as Yup from "yup";
+import LoginService from "../../../services/Login.service";
 
 export const RegistrationFormValidationSchema = Yup.object().shape({
-  _email: Yup.string()
+  email: Yup.string()
     .min(2, "Email Must be more than 2 letters!")
     .max(50, "Too Long!")
     .required("Required"),
-  _password: Yup.string()
+  password: Yup.string()
     .min(4, "Email Must be more than 2 letters!")
     .max(50, "Too Long!")
     .required("Required"),
@@ -17,15 +18,24 @@ export const RegistrationFormValidationSchema = Yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onLogin = async (userData: any) => {
+    const loginResponse = await LoginService.login(userData);
+    console.log(loginResponse);
+  };
+
   return (
     <div className="flex justify-center items-center h-full">
       <div className="flex h-3/4  shadow-xl">
         <div className="w-128">
           <FormComponent
+            initialValues={{ email: "", password: "" }}
             formFields={LoginFormFields}
             formTitle="Start Shopping, Login!"
             onCancel={() => navigate("/home")}
             validationSchema={RegistrationFormValidationSchema}
+            onSubmit={onLogin}
           />
           <p className="font-semibold  my-3 mx-2">
             Do Not Have an Account?

@@ -3,10 +3,12 @@ const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/product");
 const connectDB = require("./configs/db.config");
 const dotenv = require("dotenv");
+var cors = require("cors");
 dotenv.config();
 connectDB();
 
 const app = express();
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

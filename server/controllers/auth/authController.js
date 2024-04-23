@@ -59,6 +59,13 @@ const loginController = async (req, res) => {
     return res.status(400).json({ error: "Please enter valid email." });
   }
 
+  if (!validator.isStrongPassword(password)) {
+    return res.status(400).json({
+      error:
+        "Password must contain an uppercase, a special character and a number",
+    });
+  }
+
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(400).json({ error: "Invalid credentails" });
