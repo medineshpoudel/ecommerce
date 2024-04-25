@@ -1,0 +1,11 @@
+const SOMETHING_WENT_WRONG = "Something went wrong.";
+const NOT_FOUND = "NOT FOUND";
+const ACCESS_TOKEN_EXPIRY = "30s";
+const REFRESH_TOKEN_EXPIRY = "7d";
+
+module.exports = {
+  SOMETHING_WENT_WRONG,
+  NOT_FOUND,
+  REFRESH_TOKEN_EXPIRY,
+  ACCESS_TOKEN_EXPIRY,
+};

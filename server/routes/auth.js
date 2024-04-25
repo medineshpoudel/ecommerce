@@ -11,6 +11,13 @@ const {
 const { allowedRoles } = require("../middlewares/roleAuth");
 const requireAuth = require("../middlewares/requireAuth");
 
+  getCurrentLoggedInUser,
+  logoutController,
+} = require("../controllers/auth/authController");
+const requireAuth = require("../middlewares/requireAuth");
+const handleRefreshToken = require("../controllers/auth/refreshTokenController");
+
+
 const router = express.Router();
 
 router.post("/login", loginController);
@@ -35,5 +42,8 @@ router.get(
   allowedRoles(["admin"]),
   rejectUpgradeReqController
 );
+router.get("/user", requireAuth, getCurrentLoggedInUser);
+router.post("/logout", requireAuth, logoutController);
+router.get("/refresh", requireAuth, handleRefreshToken);
 
 module.exports = router;

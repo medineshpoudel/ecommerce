@@ -1,8 +1,19 @@
 import { AppName, ContactInfo } from "../../constants/constants";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = () => {
+export interface HeaderProps {
+  username?: string;
+  isLoggedIn: boolean;
+  logoutHandler: () => void;
+}
+
+const Header = ({ username, isLoggedIn, logoutHandler }: HeaderProps) => {
   const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    isLoggedIn ? logoutHandler() : navigate("/login");
+  };
+  console.log(username);
   return (
     <div className="flex justify-between p-2 shadow-lg sticky h-headerHeight">
       <div className=" font-semibold text-3xl flex-1 pl-2 items-center">
@@ -23,10 +34,10 @@ const Header = () => {
           </Link>
         </ul>
         <button
-          onClick={() => navigate("/login")}
+          onClick={handleButtonClick}
           className="bg-primary text-white rounded-3xl"
         >
-          LOGIN
+          {!isLoggedIn ? "LOGIN" : "LOGOUT"}
         </button>
       </div>
     </div>

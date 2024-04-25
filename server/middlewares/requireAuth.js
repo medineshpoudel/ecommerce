@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/User");
-const TokenBlacklist = require("../model/TokenBlacklist");
 
 const requireAuth = async (req, res, next) => {
   let token;
@@ -21,14 +20,14 @@ const requireAuth = async (req, res, next) => {
   }
 
   try {
-    const { userInfo } = jwt.verify(token, process.env.TOKEN_SECRET);
+    const { userInfo } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = await User.findById({ _id: userInfo.userId }).select(
       "_id, username , role"
     );
+    next();
   } catch (error) {
-    return res.status(401).json({ error: "Authorization required" });
+    return next(error);
   }
-  next();
 };
 
 module.exports = requireAuth;

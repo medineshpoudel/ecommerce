@@ -1,11 +1,11 @@
 const LoginFormFields = [
   {
-    name: "_email",
+    name: "email",
     label: "Email",
     required: true,
   },
   {
-    name: "_password",
+    name: "password",
     label: "Password",
     type: "password",
     required: true,
