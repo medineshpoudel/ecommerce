@@ -76,7 +76,7 @@ const loginController = async (req, res, next) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error("Invalid credentials");
+      throw new Error("User with email does not exist");
     }
 
     const match = await bcrypt.compare(password, user.password);
