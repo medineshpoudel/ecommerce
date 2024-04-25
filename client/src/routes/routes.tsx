@@ -15,11 +15,13 @@ const AppRoutes = [
     name: "Login",
     route: "/login",
     page: <Login />,
+    role: "guest",
   },
   {
     name: "Sing Up",
     route: "/signup",
     page: <SignUp />,
+    role: "guest",
   },
   {
     name: "Product Detail",
@@ -30,7 +32,7 @@ const AppRoutes = [
   {
     name: "Vendor Signup",
     route: "/vendor/signup",
-    role: "vendor",
+    role: "guest",
     page: <VendorSignUp />,
   },
 ];

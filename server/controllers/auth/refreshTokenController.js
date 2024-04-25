@@ -4,11 +4,10 @@ const { generateAccessToken } = require("../../utilities/generateToken");
 
 const handleRefreshToken = async (req, res, next) => {
   const cookies = req.cookies;
-  const { _id } = req.user;
   const refreshToken = cookies?.jwt;
   if (!refreshToken)
     return res
-      .statu(401)
+      .status(401)
       .json({ message: "Authorization failed, require refresh token." });
 
   try {

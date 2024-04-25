@@ -13,14 +13,12 @@ connectDB();
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) {
       return callback(null, true);
     }
 
-    // Check if the origin is allowed
     if (
-      origin === "http://127.0.0.1:5174" ||
+      origin === "http://127.0.0.1:3000" ||
       origin === "http://localhost:8000"
     ) {
       callback(null, true);

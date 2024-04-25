@@ -4,6 +4,7 @@ const {
   signUpController,
   getCurrentLoggedInUser,
   logoutController,
+  verifyTokenController,
 } = require("../controllers/auth/authController");
 const requireAuth = require("../middlewares/requireAuth");
 const handleRefreshToken = require("../controllers/auth/refreshTokenController");
@@ -14,6 +15,6 @@ router.post("/login", loginController);
 router.post("/signup", signUpController);
 router.get("/user", requireAuth, getCurrentLoggedInUser);
 router.post("/logout", requireAuth, logoutController);
-router.get("/refresh", requireAuth, handleRefreshToken);
-
+router.get("/refresh", handleRefreshToken);
+router.post("/verify-token", verifyTokenController);
 module.exports = router;
