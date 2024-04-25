@@ -23,7 +23,6 @@ const upload = multer({ storage: storage });
 
 module.exports = upload;
 
-router.use(requireAuth);
 router.get("/", (req, res) => {
   res.send("product");
 });
