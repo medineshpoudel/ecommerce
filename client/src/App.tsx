@@ -54,12 +54,12 @@ function App() {
 
         {!isLoggedIn && (
           <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
             {AppRoutes.filter((f: any) => f.role.indexOf("guest") >= 0).map(
               (item) => (
                 <Route key={item.name} path={item.route} element={item.page} />
               )
             )}
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}
