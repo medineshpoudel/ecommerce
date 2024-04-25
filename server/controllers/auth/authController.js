@@ -136,7 +136,6 @@ const acceptUpgradeReqController = async (req, res, next) => {
         error: `No upgrade request found with the id of ${req.params.id}`,
       });
     }
-    console.log(upgradeUser);
     const user = await User.findByIdAndUpdate(
       { _id: upgradeUser[0].user },
       { role: "moderator" },
