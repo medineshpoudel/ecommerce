@@ -22,6 +22,7 @@ class LoginService extends BaseService {
       localStorage.setItem(GodamLocalStorage.acessToken, response.data.token);
       localStorage.setItem(GodamLocalStorage.role, response.data.role);
       localStorage.setItem(GodamLocalStorage.role, response.data.username);
+      window.location.href = "/";
     } catch (error: any) {
       toast.error(error.response.data.message);
     }

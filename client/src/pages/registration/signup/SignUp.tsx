@@ -3,17 +3,33 @@ import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
 import SignUpFormFields from "./SignUpFormFields";
 import { RegistrationFormValidationSchema } from "../../../validators/LoginValidatos";
+import LoginService from "../../../services/Login.service";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSignUp = async (userData: any) => {
+    const signUpData = { ...userData, role: ["user"] };
+    await LoginService.signup(signUpData);
+  };
+
   return (
     <div className="flex justify-center mt-5 h-full  ">
       <div className="flex h-5/6  shadow-xl">
         <div className="w-128">
           <FormComponent
+            initialValues={{
+              email: "",
+              password: "",
+              first_name: "",
+              last_name: "",
+              phone_no: "",
+              username: "",
+            }}
             formFields={SignUpFormFields}
             formTitle="Start Shopping, SignUp!"
             onCancel={() => navigate("/home")}
+            onSubmit={onSignUp}
             validationSchema={RegistrationFormValidationSchema}
           />
           <p className="font-semibold my-3 mx-2">

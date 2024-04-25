@@ -30,10 +30,8 @@ const signUpController = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const newUser = await User.create({
-      username,
-      email,
+      ...req.body,
       password: hash,
-      role,
     });
 
     const accessToken = generateAccessToken(newUser);
@@ -54,8 +52,7 @@ const signUpController = async (req, res, next) => {
       role: newUser.role[0],
       token: accessToken,
     });
-    const id = newUser._id;
-    User.findOneAndUpdate({ id }, { refreshToken });
+    User.findOneAndUpdate({ email }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware
   }
@@ -104,6 +101,7 @@ const loginController = async (req, res, next) => {
       role: user.role[0],
       token: accessToken,
     });
+
     await User.findOneAndUpdate({ email }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware

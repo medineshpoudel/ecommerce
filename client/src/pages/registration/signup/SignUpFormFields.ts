@@ -1,32 +1,32 @@
 const SignUpFormFields = [
   {
-    name: "_username",
+    name: "username",
     label: "Username",
     required: true,
   },
   {
-    name: "_first_name",
+    name: "first_name",
     label: "First Name",
     required: true,
   },
   {
-    name: "_last_name",
+    name: "last_name",
     label: "Last Name",
     required: true,
   },
   {
-    name: "_email",
+    name: "email",
     label: "Email",
     required: true,
   },
   {
-    name: "_password",
+    name: "password",
     label: "Password",
     type: "password",
     required: true,
   },
   {
-    name: "_phone",
+    name: "phone_no",
     label: "Phone no",
     required: true,
   },
