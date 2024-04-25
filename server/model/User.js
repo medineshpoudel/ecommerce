@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "user", "moderator"],
       default: ["user"],
     },
+    refreshToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,

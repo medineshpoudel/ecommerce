@@ -1,6 +1,7 @@
 const User = require("../../model/User");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const TokenBlacklist = require("../../model/TokenBlacklist");
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -53,6 +54,8 @@ const signUpController = async (req, res, next) => {
       role: newUser.role[0],
       token: accessToken,
     });
+    const id = newUser._id;
+    User.findOneAndUpdate({ id }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware
   }
@@ -85,19 +88,10 @@ const loginController = async (req, res, next) => {
     }
 
     const accessToken = generateAccessToken(user);
-
     const refreshToken = generateRefreshToken(user);
 
-    // // Create secure cookie with refresh token
-    // res.cookie("jwt", refreshToken, {
-    //   httpOnly: true, // accessible only by the web server
-    //   secure: true, // HTTPS
-    //   sameSite: "None", // cross-site cookie
-    //   maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match refreshToken expiry
-    // });
-
     // Create secure cookie with refresh token
-    res.cookie("jwt", accessToken, {
+    res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by the web server
       secure: true, // HTTPS
       sameSite: "None", // cross-site cookie
@@ -110,6 +104,7 @@ const loginController = async (req, res, next) => {
       role: user.role[0],
       token: accessToken,
     });
+    await User.findOneAndUpdate({ email }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware
   }
@@ -124,13 +119,21 @@ const getCurrentLoggedInUser = async (req, res, next) => {
   }
 };
 
-const logoutController = async (req, res) => {
+const logoutController = async (req, res, next) => {
+  const { _id } = req.user;
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
-  try {
-    await TokenBlacklist.create({ token: cookies.jwt });
+  const refreshToken = cookies.jwt;
+  const user = await User.findById(_id);
+  if (user?.refreshToken !== refreshToken) {
     res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" });
-    res.json({ message: "Logged out successfully" });
+    return res.status(204).json({ message: "JWT cleared" });
+  }
+
+  try {
+    await User.findOneAndUpdate({ _id }, { refreshToken: "" });
+    res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" });
+    res.status(204).json({ message: "JWT cleared" });
   } catch (error) {
     next(error);
   }

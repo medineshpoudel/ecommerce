@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
@@ -8,9 +9,8 @@ import { LoginFormValidationSchema } from "../../../validators/LoginValidatos";
 const Login = () => {
   const navigate = useNavigate();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onLogin = (userData: any) => {
-    LoginService.login(userData);
+  const onLogin = async (userData: any) => {
+    await LoginService.login(userData);
   };
 
   return (

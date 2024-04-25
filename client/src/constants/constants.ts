@@ -8,4 +8,5 @@ export const ActionHandlerActions = {
 
 export const GodamLocalStorage = {
   isLoggedIn: "isLoggedIn",
+  isAdmin: "isAdmin",
 };

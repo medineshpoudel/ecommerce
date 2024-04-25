@@ -5,6 +5,7 @@ const connectDB = require("./configs/db.config");
 const dotenv = require("dotenv");
 var cors = require("cors");
 const cookieParser = require("cookie-parser");
+const requireAuth = require("./middlewares/requireAuth");
 
 const { notFoundHandler, errorHandler } = require("./middlewares/errorHandler");
 dotenv.config();
@@ -19,7 +20,7 @@ const corsOptions = {
 
     // Check if the origin is allowed
     if (
-      origin === "http://127.0.0.1:5173" ||
+      origin === "http://127.0.0.1:5174" ||
       origin === "http://localhost:8000"
     ) {
       callback(null, true);
@@ -37,6 +38,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/auth", authRoutes);
+
+app.use(requireAuth);
 app.use("/product", productRoutes);
 
 app.use(notFoundHandler);

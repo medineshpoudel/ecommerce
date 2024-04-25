@@ -5,40 +5,50 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Header from "./components/header/Header";
 import AppRoutes from "./routes/routes";
-import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import LoginService from "./services/Login.service";
 import { GodamLocalStorage } from "./constants/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../app/store";
-import { setUser } from "./features/user/userSlice";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function App() {
-  const { username, role } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const isAdmin = localStorage.getItem(GodamLocalStorage.isAdmin);
 
   useEffect(() => {
-    const getUserInfo = async () => {
-      if (localStorage.getItem(GodamLocalStorage.isLoggedIn)) {
-        const { data: userData } = await LoginService.getUserInfo();
-        dispatch(setUser(userData));
-      }
-    };
-    getUserInfo().then((r) => r);
+    const loggedIn = localStorage.getItem(GodamLocalStorage.isLoggedIn);
+    if (loggedIn === "true") {
+      setLoggedIn(true);
+    }
   }, []);
-  console.log(username, role);
+
+  const handleLogout = async () => {
+    await LoginService.logout();
+    setLoggedIn(false);
+    navigate("/login");
+  };
 
   return (
     <div className="App">
-      <Header />
+      <Header
+        logoutHandler={handleLogout}
+        username="username"
+        isLoggedIn={isLoggedIn}
+      />
       <div className="app-content h-bodyHeight">
         <Routes>
-          {AppRoutes.map((routeItem) => (
-            <Route
-              key={routeItem.route}
-              path={routeItem.route}
-              element={routeItem.page}
-            />
+          <Route path="/" element={<Navigate to="/home" />} />
+          {AppRoutes?.filter((f) => f.role && f.role.indexOf("user") >= 0).map(
+            (item) => (
+              <Route key={item.route} path={item.route} element={item.page} />
+            )
+          )}
+          {AppRoutes?.filter(
+            (f) => f.role && f.role.indexOf("vendor") >= 0
+          ).map((item) => (
+            <Route key={item.route} path={item.route} element={item.page} />
           ))}
         </Routes>
       </div>

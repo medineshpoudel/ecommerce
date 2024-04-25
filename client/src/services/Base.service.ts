@@ -22,7 +22,7 @@ class BaseService {
       const response = await axios(axiosConfig);
       return response;
     } catch (error: any) {
-      throw error.response.data;
+      throw error;
     }
   }
   static get = async ({ query, type = "get" }: ApplyActionProps) =>

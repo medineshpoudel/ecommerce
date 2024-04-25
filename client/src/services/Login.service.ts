@@ -6,11 +6,14 @@ import { GodamLocalStorage } from "../constants/constants";
 class LoginService extends BaseService {
   static async login(data: any) {
     try {
-      await this.add({ query: "auth/login", data });
+      const response = await this.add({ query: "auth/login", data });
       localStorage.setItem(GodamLocalStorage.isLoggedIn, "true");
+      if (response.data.role === "admin") {
+        localStorage.setItem(GodamLocalStorage.isAdmin, "Admin");
+      }
       window.location.href = "/";
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   }
 
@@ -29,8 +32,12 @@ class LoginService extends BaseService {
   }
 
   static async logout() {
-    const response = this.add({ query: "auth/logout" });
-    return response;
+    try {
+      await this.add({ query: "auth/logout", data: null });
+      localStorage.clear();
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   }
 
   static async validateUserToken(token: string) {
