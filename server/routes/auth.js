@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.post("/login", loginController);
 router.post("/signup", signUpController);
-router.post("/logout", logoutController);
+router.post("/logout", requireAuth, logoutController);
 router.get(
   "/upgradeUser",
   requireAuth,
@@ -39,7 +39,6 @@ router.get(
   rejectUpgradeReqController
 );
 router.get("/user", requireAuth, getCurrentLoggedInUser);
-router.post("/logout", requireAuth, logoutController);
 router.get("/refresh", requireAuth, handleRefreshToken);
 router.post("/verify-token", verifyTokenController);
 module.exports = router;

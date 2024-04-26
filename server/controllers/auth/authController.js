@@ -210,8 +210,6 @@ const rejectUpgradeReqController = async (req, res, next) => {
   }
 };
 
-
-
 const verifyTokenController = async (req, res, next) => {
   const { token } = req.body;
   try {
