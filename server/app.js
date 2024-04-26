@@ -19,6 +19,7 @@ const corsOptions = {
 
     if (
       origin === "http://127.0.0.1:3000" ||
+      origin === "http://localhost:3000" ||
       origin === "http://localhost:8000"
     ) {
       callback(null, true);
