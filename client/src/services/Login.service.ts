@@ -7,6 +7,7 @@ class LoginService extends BaseService {
   static async login(data: any) {
     try {
       const response = await this.add({ query: "auth/login", data });
+      localStorage.clear();
       localStorage.setItem(GodamLocalStorage.acessToken, response.data.token);
       localStorage.setItem(GodamLocalStorage.role, response.data.role);
       localStorage.setItem(GodamLocalStorage.username, response.data.username);
@@ -19,6 +20,7 @@ class LoginService extends BaseService {
   static async signup(data: any) {
     try {
       const response = await this.add({ query: "auth/signup", data });
+      localStorage.clear();
       localStorage.setItem(GodamLocalStorage.acessToken, response.data.token);
       localStorage.setItem(GodamLocalStorage.role, response.data.role);
       localStorage.setItem(GodamLocalStorage.role, response.data.username);
