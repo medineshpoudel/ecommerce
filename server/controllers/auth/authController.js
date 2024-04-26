@@ -1,7 +1,7 @@
 const User = require("../../model/User");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const TokenBlacklist = require("../../model/TokenBlacklist");
+const jwt = require("jsonwebtoken");
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -31,10 +31,8 @@ const signUpController = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const newUser = await User.create({
-      username,
-      email,
+      ...req.body,
       password: hash,
-      role,
     });
 
     const accessToken = generateAccessToken(newUser);
@@ -55,8 +53,7 @@ const signUpController = async (req, res, next) => {
       role: newUser.role[0],
       token: accessToken,
     });
-    const id = newUser._id;
-    User.findOneAndUpdate({ id }, { refreshToken });
+    User.findOneAndUpdate({ email }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware
   }
@@ -80,7 +77,7 @@ const loginController = async (req, res, next) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error("Invalid credentials");
+      throw new Error("User with email does not exist");
     }
 
     const match = await bcrypt.compare(password, user.password);
@@ -105,6 +102,7 @@ const loginController = async (req, res, next) => {
       role: user.role[0],
       token: accessToken,
     });
+
     await User.findOneAndUpdate({ email }, { refreshToken });
   } catch (error) {
     next(error); // Pass any caught errors to the error handler middleware
@@ -112,9 +110,10 @@ const loginController = async (req, res, next) => {
 };
 
 const getCurrentLoggedInUser = async (req, res, next) => {
+  const { _id } = req.user;
   try {
-    const currentUser = req.user;
-    res.status(200).json(currentUser);
+    const user = await User.findById(_id);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -130,7 +129,6 @@ const logoutController = async (req, res, next) => {
     res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" });
     return res.status(204).json({ message: "JWT cleared" });
   }
-
   try {
     await User.findOneAndUpdate({ _id }, { refreshToken: "" });
     res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" });
@@ -212,6 +210,17 @@ const rejectUpgradeReqController = async (req, res, next) => {
   }
 };
 
+
+
+const verifyTokenController = async (req, res, next) => {
+  const { token } = req.body;
+  try {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    res.status(200).json({ message: "user verified" });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   loginController,
   signUpController,
@@ -221,4 +230,5 @@ module.exports = {
   acceptUpgradeReqController,
   rejectUpgradeReqController,
   getCurrentLoggedInUser,
+  verifyTokenController,
 };

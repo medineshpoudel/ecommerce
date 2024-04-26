@@ -9,28 +9,30 @@ const AppRoutes = [
     name: "Home",
     route: "/home",
     page: <Home />,
-    role: "user",
+    role: ["user", "guest", "vendor"],
   },
   {
     name: "Login",
     route: "/login",
     page: <Login />,
+    role: ["guest"],
   },
   {
     name: "Sing Up",
     route: "/signup",
     page: <SignUp />,
+    role: ["guest"],
   },
   {
     name: "Product Detail",
     route: "/product-detail",
     page: <ProductDetail />,
-    role: "user",
+    role: ["user"],
   },
   {
     name: "Vendor Signup",
     route: "/vendor/signup",
-    role: "vendor",
+    role: ["vendor"],
     page: <VendorSignUp />,
   },
 ];

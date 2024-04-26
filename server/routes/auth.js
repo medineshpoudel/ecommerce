@@ -9,6 +9,7 @@ const {
   getUpgradeUserController,
   getCurrentLoggedInUser,
   logoutController,
+  verifyTokenController,
 } = require("../controllers/auth/authController");
 const { allowedRoles } = require("../middlewares/roleAuth");
 const requireAuth = require("../middlewares/requireAuth");
@@ -43,6 +44,6 @@ router.post("/logout", requireAuth, logoutController);
 router.get("/refresh", requireAuth, handleRefreshToken);
 router.get("/user", requireAuth, getCurrentLoggedInUser);
 router.post("/logout", requireAuth, logoutController);
-router.get("/refresh", requireAuth, handleRefreshToken);
-
+router.get("/refresh", handleRefreshToken);
+router.post("/verify-token", verifyTokenController);
 module.exports = router;

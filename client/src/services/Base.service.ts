@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import axios, { AxiosRequestConfig } from "axios";
+import { GodamLocalStorage } from "../constants/constants";
 
 export interface ApplyActionProps {
   query: string;
@@ -15,6 +16,10 @@ class BaseService {
       method: type,
       data,
       url: `http://localhost:8000/${query}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage[GodamLocalStorage.acessToken]}`,
+      },
       withCredentials: true,
     };
 

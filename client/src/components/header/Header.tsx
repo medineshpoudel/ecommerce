@@ -7,13 +7,13 @@ export interface HeaderProps {
   logoutHandler: () => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Header = ({ username, isLoggedIn, logoutHandler }: HeaderProps) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     isLoggedIn ? logoutHandler() : navigate("/login");
   };
-  console.log(username);
   return (
     <div className="flex justify-between p-2 shadow-lg sticky h-headerHeight">
       <div className=" font-semibold text-3xl flex-1 pl-2 items-center">

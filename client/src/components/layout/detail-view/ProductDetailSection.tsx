@@ -24,7 +24,11 @@ const ProductDetailSection = ({
       </h2>
       <div className="flex flex-nowrap space-x-2">
         {products.map((product) => (
-          <Card item={product} onCardClickHandler={onDetailViewCardClick} />
+          <Card
+            key={product.id}
+            item={product}
+            onCardClickHandler={onDetailViewCardClick}
+          />
         ))}
       </div>
     </div>

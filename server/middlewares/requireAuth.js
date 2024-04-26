@@ -13,12 +13,6 @@ const requireAuth = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: "Authorization token required" });
   }
-  
-  const isTokenBlackList = await TokenBlacklist.find({ token });
-  if (isTokenBlackList.length) {
-    return res.status(401).json({ message: "Authorization token is invalid" });
-  }
-
   try {
     const { userInfo } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = await User.findById({ _id: userInfo.userId }).select(

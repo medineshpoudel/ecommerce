@@ -5,29 +5,26 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Header from "./components/header/Header";
 import AppRoutes from "./routes/routes";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LoginService from "./services/Login.service";
-import { GodamLocalStorage } from "./constants/constants";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { GodamLocalStorage } from "./constants/constants";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const navigate = useNavigate();
-
-  const isAdmin = localStorage.getItem(GodamLocalStorage.isAdmin);
+  const [isLoggedIn, setisLoggedIn] = useState(
+    localStorage[GodamLocalStorage.acessToken] !== undefined
+  );
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem(GodamLocalStorage.isLoggedIn);
-    if (loggedIn === "true") {
-      setLoggedIn(true);
-    }
+    const validateUser = async () => {
+      await LoginService.validateUserToken();
+    };
+    validateUser().then((r) => r);
   }, []);
 
   const handleLogout = async () => {
     await LoginService.logout();
-    setLoggedIn(false);
-    navigate("/login");
   };
 
   return (
@@ -38,19 +35,34 @@ function App() {
         isLoggedIn={isLoggedIn}
       />
       <div className="app-content h-bodyHeight">
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          {AppRoutes?.filter((f) => f.role && f.role.indexOf("user") >= 0).map(
-            (item) => (
+        {isLoggedIn && (
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+            {AppRoutes?.filter(
+              (f) => f.role && f.role.indexOf("user") >= 0
+            ).map((item) => (
               <Route key={item.route} path={item.route} element={item.page} />
-            )
-          )}
-          {AppRoutes?.filter(
-            (f) => f.role && f.role.indexOf("vendor") >= 0
-          ).map((item) => (
-            <Route key={item.route} path={item.route} element={item.page} />
-          ))}
-        </Routes>
+            ))}
+            {AppRoutes?.filter(
+              (f) => f.role && f.role.indexOf("vendor") >= 0
+            ).map((item) => (
+              <Route key={item.route} path={item.route} element={item.page} />
+            ))}
+          </Routes>
+        )}
+
+        {!isLoggedIn && (
+          <Routes>
+            {AppRoutes.filter((f: any) => f.role.indexOf("guest") >= 0).map(
+              (item) => (
+                <Route key={item.name} path={item.route} element={item.page} />
+              )
+            )}
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        )}
       </div>
       <ToastContainer position="bottom-right" />
     </div>

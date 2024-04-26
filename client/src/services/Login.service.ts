@@ -7,10 +7,9 @@ class LoginService extends BaseService {
   static async login(data: any) {
     try {
       const response = await this.add({ query: "auth/login", data });
-      localStorage.setItem(GodamLocalStorage.isLoggedIn, "true");
-      if (response.data.role === "admin") {
-        localStorage.setItem(GodamLocalStorage.isAdmin, "Admin");
-      }
+      localStorage.setItem(GodamLocalStorage.acessToken, response.data.token);
+      localStorage.setItem(GodamLocalStorage.role, response.data.role);
+      localStorage.setItem(GodamLocalStorage.username, response.data.username);
       window.location.href = "/";
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -19,29 +18,65 @@ class LoginService extends BaseService {
 
   static async signup(data: any) {
     try {
-      await this.add({ query: "auth/signup", data });
-      localStorage.setItem(GodamLocalStorage.isLoggedIn, "true");
+      const response = await this.add({ query: "auth/signup", data });
+      localStorage.setItem(GodamLocalStorage.acessToken, response.data.token);
+      localStorage.setItem(GodamLocalStorage.role, response.data.role);
+      localStorage.setItem(GodamLocalStorage.role, response.data.username);
+      window.location.href = "/";
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   }
 
   static async getUserInfo() {
-    const response = this.get({ query: "auth/user" });
-    return response;
-  }
-
-  static async logout() {
     try {
-      await this.add({ query: "auth/logout", data: null });
-      localStorage.clear();
+      const response = await this.get({ query: "auth/user" });
+      return response.data;
     } catch (error: any) {
       toast.error(error.message);
     }
   }
 
-  static async validateUserToken(token: string) {
-    console.log(token);
+  static async getAccessToken() {
+    try {
+      const response = await this.get({ query: "auth/refresh" });
+      localStorage.setItem(
+        GodamLocalStorage.acessToken,
+        response.data.accessToken
+      );
+    } catch (error: any) {
+      localStorage.clear();
+    }
+  }
+
+  static async logout() {
+    try {
+      await this.add({ query: "auth/logout", data: {} });
+      localStorage.clear();
+      window.location.href = "/";
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }
+
+  static async validateUserToken() {
+    const token = localStorage[GodamLocalStorage.acessToken];
+    if (token) {
+      try {
+        await this.add({
+          query: "auth/verify-token",
+          data: { token },
+        });
+      } catch (error: any) {
+        if (error.response.data.message === "jwt expired") {
+          await this.getAccessToken();
+          return;
+        }
+        return toast.error(error.message);
+      }
+    } else {
+      await LoginService.getAccessToken();
+    }
   }
 }
 
