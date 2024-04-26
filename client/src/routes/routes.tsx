@@ -36,24 +36,21 @@ const AppRoutes = [
     role: ["guest"],
     page: <VendorSignUp />,
   },
-  {
-    name: "Vendor Signup",
-    route: "/vendor/create-product",
-    role: ["vendor"],
-    page: <h1>hi</h1>,
-  },
+
   {
     name: "Add Product",
-    route: "/vendor/add-product",
+    route: "/vendor/product",
     role: ["vendor"],
     page: <h1>hi</h1>,
   },
+
   {
     name: "Add Product",
     route: "/vendor/product-request",
     role: ["vendor"],
     page: <h1>hi</h1>,
   },
+
   {
     name: "Not Found",
     route: "/not-found",
