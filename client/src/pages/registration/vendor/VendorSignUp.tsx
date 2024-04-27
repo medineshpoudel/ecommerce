@@ -2,19 +2,28 @@ import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
 import VendorSignUpFormFields from "./VendorSignUpFormFields";
+import LoginService from "../../../services/Login.service";
 
 const VendorSignUp = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSignUp = (data: any) => {
-    console.log(data);
+  const onSignUp = async (userData: any) => {
+    const signUpData = { ...userData, role: ["vendor"] };
+    await LoginService.signup(signUpData);
   };
   return (
     <div className="flex justify-center mt-5 h-full  ">
       <div className="flex h-5/6  shadow-xl">
         <div className="w-128">
           <FormComponent
-            initialValues={{ username: "", email: "", password: "" }}
+            initialValues={{
+              email: "",
+              password: "",
+              first_name: "",
+              last_name: "",
+              phone_no: "",
+              username: "",
+            }}
             formFields={VendorSignUpFormFields}
             formTitle="Lets Start Your Business, SignUp!"
             onCancel={() => navigate("/home")}

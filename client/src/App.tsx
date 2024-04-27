@@ -38,7 +38,7 @@ function App() {
         {isLoggedIn && (
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="*" element={<Navigate to="/not-found" />} />
             {AppRoutes?.filter(
               (f) => f.role && f.role.indexOf("user") >= 0
             ).map((item) => (
