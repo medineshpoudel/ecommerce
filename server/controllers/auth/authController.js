@@ -174,7 +174,7 @@ const acceptUpgradeReqController = async (req, res, next) => {
     }
     const user = await User.findByIdAndUpdate(
       { _id: upgradeUser[0].user },
-      { role: "moderator" },
+      { role: "vendor" },
       { new: true }
     );
 
