@@ -4,39 +4,43 @@ const {
   signUpController,
   logoutController,
   upgradeUserController,
-  acceptUpgradeReqController,
-  rejectUpgradeReqController,
-  getUpgradeUserController,
   getCurrentLoggedInUser,
   verifyTokenController,
 } = require("../controllers/auth/authController");
 const { allowedRoles } = require("../middlewares/roleAuth");
 const requireAuth = require("../middlewares/requireAuth");
 const handleRefreshToken = require("../controllers/auth/refreshTokenController");
+const {
+  requestSignupController,
+  getRequestVendorController,
+  acceptRequestVendorController,
+  rejectRequestVendorController,
+} = require("../controllers/auth/requestVendorController");
 
 const router = express.Router();
 
 router.post("/login", loginController);
-router.post("/signup", signUpController);
+router.post("/signup", requestSignupController);
+// router.post("/signup", signUpController);
 router.post("/logout", requireAuth, logoutController);
 router.get(
-  "/upgradeUser",
+  "/requestVendor",
   requireAuth,
   allowedRoles(["admin"]),
-  getUpgradeUserController
+  getRequestVendorController
 );
 router.post("/upgradeUser", upgradeUserController);
 router.get(
-  "/accept/:id",
+  "/acceptVendorRequest/:id",
   requireAuth,
   allowedRoles(["admin"]),
-  acceptUpgradeReqController
+  acceptRequestVendorController
 );
 router.get(
-  "/reject/:id",
+  "/rejectVendorRequest/:id",
   requireAuth,
   allowedRoles(["admin"]),
-  rejectUpgradeReqController
+  rejectRequestVendorController
 );
 router.get("/user", requireAuth, getCurrentLoggedInUser);
 router.get("/refresh", requireAuth, handleRefreshToken);

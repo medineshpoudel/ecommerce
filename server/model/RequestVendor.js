@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const requestVendor = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -33,10 +33,13 @@ const userSchema = new mongoose.Schema(
       type: [String],
       required: true,
       enum: ["admin", "user", "moderator"],
-      default: ["user"],
+      default: ["moderator"],
     },
-    refreshToken: {
-      type: String,
+    status: {
+      type: [String],
+      required: true,
+      enum: ["pending", "accepted", "rejected"],
+      default: ["pending"],
     },
   },
   {
@@ -44,4 +47,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("RequestVendor", requestVendor);
