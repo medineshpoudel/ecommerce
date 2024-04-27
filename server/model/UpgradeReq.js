@@ -7,7 +7,7 @@ const upgradeReqschema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  role: { type: String, enum: ["moderator", "admin"], default: "moderator" },
+  role: { type: String, enum: ["vendor", "admin"], default: "vendor" },
   status: { type: String, default: "pending" },
   createdAt: { type: Date, default: Date.now },
 });

@@ -32,8 +32,8 @@ const requestVendor = new mongoose.Schema(
     role: {
       type: [String],
       required: true,
-      enum: ["admin", "user", "moderator"],
-      default: ["moderator"],
+      enum: ["admin", "user", "vendor"],
+      default: ["vendor"],
     },
     status: {
       type: [String],
