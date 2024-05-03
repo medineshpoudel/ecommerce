@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
 
-const upgradeReqschema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-    unique: true,
+const upgradeReqschema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+      unique: true,
+    },
+    role: { type: String, enum: ["vendor", "admin"], default: "vendor" },
+    status: { type: String, default: "pending" },
   },
-  role: { type: String, enum: ["vendor", "admin"], default: "vendor" },
-  status: { type: String, default: "pending" },
-  createdAt: { type: Date, default: Date.now },
-});
+  { timestamps: true }
+);
 
 upgradeReqschema.virtual("users", {
   ref: "User",
