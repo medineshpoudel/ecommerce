@@ -43,9 +43,9 @@ const signUpController = async (req, res, next) => {
       password: hash,
     });
 
-    const accessToken = generateAccessToken(newUser);
+    const accessToken = await generateAccessToken(newUser);
 
-    const refreshToken = generateRefreshToken(newUser);
+    const refreshToken = await generateRefreshToken(newUser);
 
     // Create secure cookie with refresh token
     res.cookie("jwt", refreshToken, {

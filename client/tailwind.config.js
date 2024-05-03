@@ -38,6 +38,7 @@ export default {
       height: {
         headerHeight: "60px",
         bodyHeight: "calc(100vh - 60px)",
+        gridHeight: "calc(100vh-60px-60px)",
       },
     },
   },
