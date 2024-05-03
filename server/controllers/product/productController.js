@@ -9,6 +9,7 @@ const postProductController = async (req, res, next) => {
     image_1,
     image_2,
     image_3,
+    image_4,
   } = req.body;
   if (
     !title ||
