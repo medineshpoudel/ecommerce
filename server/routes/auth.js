@@ -19,7 +19,7 @@ router.post("/login", loginController);
 router.post("/signup", signUpController);
 
 //vendor authentication
-router.post("vendor/signup", requestSignupController);
+router.post("/vendor/signup", requestSignupController);
 
 router.post("/upgradeUser", upgradeUserController);
 router.use(requireAuth);
