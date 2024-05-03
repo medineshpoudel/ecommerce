@@ -1,7 +1,6 @@
 const Product = require("../../model/Product");
 const { uploadToCloudinary } = require("../../configs/cloudinary");
 const postProductController = async (req, res, next) => {
-  console.log(req.body);
   const {
     title,
     actualPrice,
