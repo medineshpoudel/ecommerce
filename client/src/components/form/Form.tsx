@@ -9,6 +9,7 @@ export interface FieldProps {
   dropdownList?: string[];
   required?: boolean;
   disabled?: boolean;
+  default?: any;
 }
 
 export interface FormProps {
@@ -18,6 +19,7 @@ export interface FormProps {
   onSubmit?: any;
   onCancel?: () => void;
   validationSchema?: object;
+  className?: string;
 }
 
 const FormComponent = ({
@@ -27,8 +29,9 @@ const FormComponent = ({
   onSubmit,
   onCancel,
   validationSchema,
+  className,
 }: FormProps) => (
-  <div className="form-wrapper p-2">
+  <div className={`form-wrapper p-2  ${className}`}>
     <div className="form-title">
       <h2 className="text-primary text-3xl font-semibold  m">{formTitle}</h2>
       <i className="fa fa-close" onClick={onCancel} />
@@ -57,9 +60,10 @@ const FormComponent = ({
                     <Field
                       as="select"
                       name={field.name}
-                      className="field"
+                      className="field border-2 w-full rounded-md my-2 p-1"
                       disabled={field.disabled}
                       key={field.name}
+                      default={field.default}
                     >
                       {field.dropdownList.map((list: string) => (
                         <option value={list} key={list}>
@@ -82,6 +86,7 @@ const FormComponent = ({
                       </span>
                     </label>
                     <br />
+
                     <Field
                       type={field.type ?? "text"}
                       name={field.name}
@@ -90,6 +95,7 @@ const FormComponent = ({
                       disabled={field.disabled}
                       key={field.name}
                     />
+
                     <ErrorMessage
                       name={field.name}
                       component="div"

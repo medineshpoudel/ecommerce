@@ -1,52 +1,88 @@
 const Product = require("../../model/Product");
 const { uploadToCloudinary } = require("../../configs/cloudinary");
-const postProductController = async (req, res, next) => {
-  const {
-    title,
-    actualPrice,
-    discountedPrice,
-    productType,
-    image_1,
-    image_2,
-    image_3,
-    image_4,
-  } = req.body;
-  if (
-    !title ||
-    !actualPrice ||
-    !discountedPrice ||
-    !productType ||
-    !image_1 ||
-    !image_2 ||
-    !image_3 ||
-    !image_4
-  ) {
-    return res
-      .status(400)
-      .json({ error: "Please fill up all the required fields." });
-  }
+
+const getProductsOfVedor = async (req, res, next) => {
   try {
-    let imageData = {};
-    const results = await Promise.all([
-      uploadToCloudinary(image_1, "products"),
-      uploadToCloudinary(image_2, "products"),
-      uploadToCloudinary(image_3, "products"),
+    const product = await Product.aggregate([
+      {
+        $match: { createdBy: req.user._id.toString() },
+      },
     ]);
-    imageData.image_1 = results[0];
-    imageData.image_2 = results[1];
-    imageData.image_3 = results[2];
-    imageData = results;
-    const newProduct = await Product.create({
-      title,
-      actualPrice,
-      discountedPrice,
-      productType,
-      ...imageData,
-    });
-    res.status(200).json(newProduct);
+    res.status(200).json(product);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { postProductController };
+const getAllProducts = async (req, res, next) => {
+  try {
+    const product = await Product.find();
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const postProductController = async (req, res, next) => {
+  const { title, actualPrice, discountedPrice, productType } = req.body;
+  const user = req.user;
+  if (!title || !actualPrice || !discountedPrice || !productType) {
+    return res
+      .status(400)
+      .json({ error: "Please fill up all the required fields." });
+  }
+  try {
+    const newProduct = await Product.create({
+      title,
+      actualPrice,
+      discountedPrice,
+      productType,
+      createdBy: user?._id,
+    });
+    res.status(200).json(newProduct);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const updateProductController = async (req, res, next) => {
+  const { title, actualPrice, discountedPrice, productType, _id } = req.body;
+  if (!title || !actualPrice || !discountedPrice || !productType) {
+    return res
+      .status(400)
+      .json({ error: "Please fill up all the required fields." });
+  }
+  const dataToBeUpdated = req.body;
+
+  try {
+    const updatedProduct = await Product.findOneAndUpdate(
+      { _id },
+      { $set: dataToBeUpdated },
+      { new: true } // This option returns the updated document
+    );
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteProductController = async (req, res) => {
+  const { _id } = req.body;
+  console.log(req.body);
+
+  try {
+    const deleteProduct = await Product.deleteOne({ _id });
+    res.status(200).json({ _id });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+module.exports = {
+  postProductController,
+  updateProductController,
+  deleteProductController,
+  getProductsOfVedor,
+  getAllProducts,
+};

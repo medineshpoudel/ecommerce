@@ -1,24 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import GridWithForm from "../../../components/grid/GridWithForm";
-
-const cols = [
-  { field: "make" },
-  { field: "model" },
-  { field: "price" },
-  { field: "electric" },
-];
-
-const gridData = [
-  { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-  { make: "Ford", model: "F-Series", price: 33850, electric: false },
-  { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-];
+import useAppQuery from "../../../hooks/useAppQuery";
+import ProductFormFields from "./ProductFormFields";
+import ProductGridColumns from "./ProductGridColumns";
+import ProductValidationSchema from "./ProductValidationSchema";
 
 const Product = () => {
+  const { data, isFetching, onActionHandler } = useAppQuery({
+    query: "vendor/product",
+  });
+
   return (
     <GridWithForm
-      gridColumns={cols}
-      data={gridData}
-      onActionHandler={() => {}}
+      gridColumns={ProductGridColumns}
+      formFields={ProductFormFields}
+      data={data}
+      onActionHandler={onActionHandler}
+      validationSchema={ProductValidationSchema}
     />
   );
 };
