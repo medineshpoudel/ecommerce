@@ -20,6 +20,7 @@ export interface FormProps {
   onCancel?: () => void;
   validationSchema?: object;
   className?: string;
+  formClassName?: string;
 }
 
 const FormComponent = ({
@@ -30,10 +31,11 @@ const FormComponent = ({
   onCancel,
   validationSchema,
   className,
+  formClassName,
 }: FormProps) => (
-  <div className={`form-wrapper p-2  ${className}`}>
+  <div className={`form-wrapper p-2 ${className} `}>
     <div className="form-title">
-      <h2 className="text-primary text-3xl font-semibold  m">{formTitle}</h2>
+      <h2 className="text-primary text-3xl font-semibold m">{formTitle}</h2>
       <i className="fa fa-close" onClick={onCancel} />
     </div>
     <Formik
@@ -45,7 +47,10 @@ const FormComponent = ({
       }}
     >
       {({ isSubmitting }) => (
-        <Form className="form p-2" encType="multipart/form-data">
+        <Form
+          className={`form p-2 ${formClassName}`}
+          encType="multipart/form-data"
+        >
           <div className="form-content">
             {formFields.map((field: any) => (
               <div className="form-field" key={field.name}>

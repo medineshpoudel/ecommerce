@@ -13,8 +13,7 @@ const ProductDetailSection = ({
 }: DetailSectionProps) => {
   const navigate = useNavigate();
   const onDetailViewCardClick = (itemId: any) => {
-    console.log(itemId);
-    navigate("/product-detail");
+    navigate(`/product-detail/${itemId}`);
   };
 
   return (
@@ -23,9 +22,9 @@ const ProductDetailSection = ({
         {title.toUpperCase()}
       </h2>
       <div className="flex flex-nowrap space-x-2">
-        {products.map((product) => (
+        {products?.map((product) => (
           <Card
-            key={product.id}
+            key={product._id}
             item={product}
             onCardClickHandler={onDetailViewCardClick}
           />

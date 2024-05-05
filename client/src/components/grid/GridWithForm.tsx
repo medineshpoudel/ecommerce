@@ -47,7 +47,8 @@ const GridWithForm = ({
             closeModal();
           }}
           onSubmit={onFormSubmit}
-          className="bg-white w-1/2 h-1/2 overflow-auto"
+          className="bg-white w-1/2 h-3/4"
+          formClassName="h-5/6 overflow-auto"
         />
       ),
     });
@@ -65,7 +66,8 @@ const GridWithForm = ({
             closeModal();
           }}
           onSubmit={onFormEdit}
-          className="bg-white w-1/2 h-1/2 overflow-auto"
+          className="bg-white w-1/2 h-3/4"
+          formClassName="h-5/6 overflow-auto"
         />
       ),
     });

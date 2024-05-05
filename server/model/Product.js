@@ -19,10 +19,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       enum: ["Laptop", "Mobile", "Headphone"],
     },
-    freature_1: { type: String },
-    freature_2: { type: String },
-    freature_3: { type: String },
-    freature_4: { type: String },
+    feature_1: { type: String },
+    feature_2: { type: String },
+    feature_3: { type: String },
+    feature_4: { type: String },
     // image_1: {
     //   publicId: {
     //     type: String,

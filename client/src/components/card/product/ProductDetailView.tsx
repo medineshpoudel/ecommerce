@@ -1,21 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useParams } from "react-router-dom";
 import Button from "../../button/Button";
 import ProductDetail from "./ProductDetail";
 import ProductImageView from "./ProductImageView";
+import useAppQuery from "../../../hooks/useAppQuery";
+import { ActionHandlerActions } from "../../../constants/constants";
 
 export interface ProductDetailProps {
   product: any[];
 }
 
 const DummyProduct = {
-  _title:
-    "Acer Predator Helios 300 2021 i7 11th Gen 8 Core | RTX 3070 | 16GB RAM | 1TB SSD | 15.6 inch QHD 165Hz display",
-  _actual_price: "20000",
-  _discounted_price: "18000",
-  _feature_1: "RAM: this is about ram",
-  _feature_2: "CPU: this is about ram",
-  _feature_3: "GPU: this is about ram",
-  _feature_4: "Storage: this is about ram",
   _image_1: "/public/test-image.png",
   _image_2: "/public/test-image-5.jpeg",
   _image_3: "/public/test-image-6.jpeg",
@@ -39,8 +34,15 @@ const ProductViewCorners = () => (
 );
 
 const ProductDetailView = ({ product = DummyProduct }: any) => {
+  const { id } = useParams();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data, isFetching, onActionHandler } = useAppQuery({
+    query: `product-order/${id}`,
+  });
+
   const onPurchage = () => {
-    console.log("purchageClicked");
+    onActionHandler({ action: ActionHandlerActions.Add, item: data });
   };
 
   return (
@@ -49,7 +51,7 @@ const ProductDetailView = ({ product = DummyProduct }: any) => {
       <div className="h-5/6 w-5/6  shadow-lg flex">
         <ProductImageView product={product} />
         <div className="h-full w-1/2 product-detail-right p-2">
-          <ProductDetail product={product} />
+          <ProductDetail product={data ?? {}} />
           <div className="flex w-full justify-center">
             <Button
               text="Purchage"

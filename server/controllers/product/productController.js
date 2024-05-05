@@ -1,5 +1,4 @@
 const Product = require("../../model/Product");
-const { uploadToCloudinary } = require("../../configs/cloudinary");
 
 const getProductsOfVedor = async (req, res, next) => {
   try {
@@ -17,6 +16,16 @@ const getProductsOfVedor = async (req, res, next) => {
 const getAllProducts = async (req, res, next) => {
   try {
     const product = await Product.find();
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getProductController = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
     res.status(200).json(product);
   } catch (error) {
     next(error);
@@ -85,4 +94,5 @@ module.exports = {
   deleteProductController,
   getProductsOfVedor,
   getAllProducts,
+  getProductController,
 };
