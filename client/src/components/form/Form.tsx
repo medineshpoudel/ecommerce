@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../button/Button";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export interface FieldProps {
   name: string;
@@ -9,6 +11,7 @@ export interface FieldProps {
   dropdownList?: string[];
   required?: boolean;
   disabled?: boolean;
+  default?: any;
 }
 
 export interface FormProps {
@@ -18,7 +21,28 @@ export interface FormProps {
   onSubmit?: any;
   onCancel?: () => void;
   validationSchema?: object;
+  className?: string;
+  formClassName?: string;
 }
+
+const handleCloudinaryImageUpload = async (file: any) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "ydozer4i");
+  try {
+    const result = await axios.post(
+      `https://api.cloudinary.com/v1_1/${
+        import.meta.env.VITE_CLOUDINARY_PRESET
+      }/image/upload`,
+      formData
+    );
+    return result.data.url;
+  } catch {
+    toast.error("error");
+  }
+};
+
+const ImageFields: Array<{ name: string; file: any }> = [];
 
 const FormComponent = ({
   initialValues = {},
@@ -27,22 +51,44 @@ const FormComponent = ({
   onSubmit,
   onCancel,
   validationSchema,
+  className,
+  formClassName,
 }: FormProps) => (
-  <div className="form-wrapper p-2">
+  <div className={`form-wrapper p-2 ${className} `}>
     <div className="form-title">
-      <h2 className="text-primary text-3xl font-semibold  m">{formTitle}</h2>
+      <h2 className="text-primary text-3xl font-semibold m">{formTitle}</h2>
       <i className="fa fa-close" onClick={onCancel} />
     </div>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        onSubmit(values);
-        setSubmitting(false);
+        const uploadPromises = ImageFields.map((image) => {
+          return handleCloudinaryImageUpload(image.file).then((response) => {
+            return { name: image.name, url: response };
+          });
+        });
+
+        Promise.all(uploadPromises).then((responses) => {
+          const updatedValues = { ...values };
+          responses.forEach((response) => {
+            updatedValues[response.name] = response.url;
+          });
+
+          console.log(updatedValues);
+          onSubmit(updatedValues);
+          setSubmitting(false);
+        });
+
+        // Clear ImageFields after processing
+        ImageFields.length = 0;
       }}
     >
-      {({ isSubmitting }) => (
-        <Form className="form p-2" encType="multipart/form-data">
+      {({ isSubmitting, setFieldValue }) => (
+        <Form
+          className={`form p-2 ${formClassName}`}
+          encType="multipart/form-data"
+        >
           <div className="form-content">
             {formFields.map((field: any) => (
               <div className="form-field" key={field.name}>
@@ -57,9 +103,10 @@ const FormComponent = ({
                     <Field
                       as="select"
                       name={field.name}
-                      className="field"
+                      className="field border-2 w-full rounded-md my-2 p-1"
                       disabled={field.disabled}
                       key={field.name}
+                      default={field.default}
                     >
                       {field.dropdownList.map((list: string) => (
                         <option value={list} key={list}>
@@ -82,14 +129,35 @@ const FormComponent = ({
                       </span>
                     </label>
                     <br />
-                    <Field
-                      type={field.type ?? "text"}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      className="field border-2 w-full rounded-md my-2 p-1"
-                      disabled={field.disabled}
-                      key={field.name}
-                    />
+                    {field.type === "file" ? (
+                      <input
+                        type="file"
+                        onChange={(event: any) => {
+                          ImageFields.push({
+                            name: field.name,
+                            file: event.currentTarget.files[0],
+                          });
+                          setFieldValue(
+                            field.name,
+                            event.currentTarget.files[0]
+                          );
+                        }}
+                        placeholder={field.placeholder}
+                        className="field border-2 w-full rounded-md my-2 p-1"
+                        disabled={field.disabled}
+                        key={field.name}
+                      />
+                    ) : (
+                      <Field
+                        type={field.type ?? "text"}
+                        name={field.name}
+                        placeholder={field.placeholder}
+                        className="field border-2 w-full rounded-md my-2 p-1"
+                        disabled={field.disabled}
+                        key={field.name}
+                      />
+                    )}
+
                     <ErrorMessage
                       name={field.name}
                       component="div"

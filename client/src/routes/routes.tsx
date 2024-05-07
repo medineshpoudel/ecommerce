@@ -4,6 +4,8 @@ import NotFound from "../pages/NotFound";
 import Login from "../pages/registration/login/Login";
 import SignUp from "../pages/registration/signup/SignUp";
 import VendorSignUp from "../pages/registration/vendor/VendorSignUp";
+import Product from "../pages/vendor/product/Product";
+import ProductOrders from "../pages/vendor/product/product-order/ProductOrders";
 
 const AppRoutes = [
   {
@@ -26,7 +28,7 @@ const AppRoutes = [
   },
   {
     name: "Product Detail",
-    route: "/product-detail",
+    route: "/product-detail/:id",
     page: <ProductDetail />,
     role: ["user"],
   },
@@ -41,14 +43,14 @@ const AppRoutes = [
     name: "Add Product",
     route: "/vendor/product",
     role: ["vendor"],
-    page: <h1>hi</h1>,
+    page: <Product />,
   },
 
   {
     name: "Add Product",
     route: "/vendor/product-request",
     role: ["vendor"],
-    page: <h1>hi</h1>,
+    page: <ProductOrders />,
   },
 
   {

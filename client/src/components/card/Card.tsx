@@ -9,15 +9,13 @@ export interface CardProps {
 const Card = ({ item, onCardClickHandler }: CardProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onButtonClick = () => {};
-
   const onItemClick = () => {
-    console.log("ho");
-    onCardClickHandler(item.id);
+    onCardClickHandler(item._id);
   };
   return (
     <div className="relative flex flex-col space-y-2  w-96 h-100 rounded-md p-2 shadow-xl">
       <img
-        src={item.imageUrl}
+        src={item.image_1}
         className="w-full h-40  border-b-2 border-primary shrink-0"
       />
       <div className="p-3 items-center">

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { ActionHandlerActions } from "../constants/constants";
 import {
@@ -9,6 +9,7 @@ import {
   fetchData,
   updateMutation,
 } from "../helpers/tanstackQueryMutations";
+import { ToastMessage } from "../constants/staticList";
 
 export interface UseAppProps {
   query: string;
@@ -16,44 +17,45 @@ export interface UseAppProps {
 }
 
 const useAppQuery = ({ query }: UseAppProps) => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   // Queries
-  const { data, error, isFetching, isSuccess } = useQuery({
+  const { data, error, isFetching } = useQuery({
     queryKey: [query],
-    queryFn: () => {
-      fetchData(query);
+    queryFn: async () => {
+      const response = await fetchData(query);
+      return response;
     },
   });
 
   const addDataMutation: any = useMutation({
-    mutationFn: (data) => addMutation(query, data),
+    mutationFn: (dataToAdd) => addMutation(query, dataToAdd),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [query] });
+      toast.success(ToastMessage.AddSuccess);
     },
   });
 
   const updateDataMutation: any = useMutation({
-    mutationFn: () => updateMutation(query, data),
+    mutationFn: (dataToUpdate) => updateMutation(query, dataToUpdate),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [query] });
+      toast.success(ToastMessage.UpdateSuccess);
     },
   });
 
   const deleteDataMutation: any = useMutation({
-    mutationFn: () => deleteMutation(query, data),
+    mutationFn: (dataToDelete) => deleteMutation(query, dataToDelete),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [query] });
+      toast.success(ToastMessage.DeleteSuccess);
     },
   });
 
-  if (isSuccess) {
-    toast.success("Successfully fetched the data");
-  }
   if (error) {
-    toast.error("Error");
+    toast.error(error?.message);
   }
 
   const onActionHandler = ({ action, item }: any) => {

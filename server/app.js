@@ -1,35 +1,19 @@
 const express = require("express");
-const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/product");
-const connectDB = require("./configs/db.config");
-const dotenv = require("dotenv");
-var cors = require("cors");
 const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+const connectDB = require("./configs/db.config");
+var cors = require("cors");
+const corsOptions = require("./configs/corsOptions");
 const requireAuth = require("./middlewares/requireAuth");
+const authRoutes = require("./routes/auth");
+const vendorRoutes = require("./routes/vendor/routes");
+const adminRoutes = require("./routes/admin/routes");
+const userRoutes = require("./routes/user/routes");
 
 const { notFoundHandler, errorHandler } = require("./middlewares/errorHandler");
+
 dotenv.config();
 connectDB();
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    if (
-      origin === "http://127.0.0.1:3000" ||
-      origin === "http://localhost:3000" ||
-      origin === "http://localhost:8000"
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  credentials: true,
-};
 
 const app = express();
 app.use(cors(corsOptions));
@@ -38,10 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
-
-app.use(requireAuth);
-app.use("/product", productRoutes);
-
+app.use("/", userRoutes);
+app.use("/vendor", vendorRoutes);
+app.use("/admin", adminRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

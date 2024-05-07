@@ -3,6 +3,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+
 import Header from "./components/header/Header";
 import AppRoutes from "./routes/routes";
 import { Route, Routes } from "react-router-dom";
@@ -12,7 +13,7 @@ import { Navigate } from "react-router-dom";
 import { GodamLocalStorage } from "./constants/constants";
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(
+  const [isLoggedIn] = useState(
     localStorage[GodamLocalStorage.acessToken] !== undefined
   );
 

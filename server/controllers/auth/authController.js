@@ -10,8 +10,16 @@ const UpgradeReq = require("../../model/UpgradeReq");
 
 const signUpController = async (req, res, next) => {
   try {
-    const { username, email, password, role } = req.body;
-    if (!username || !email || !password || !role) {
+    const { username, email, password, first_name, last_name, phone_no } =
+      req.body;
+    if (
+      !username ||
+      !first_name ||
+      !last_name ||
+      !email ||
+      !password ||
+      !phone_no
+    ) {
       throw new Error("All fields are required");
     }
     if (!validator.isEmail(email)) {
@@ -35,9 +43,9 @@ const signUpController = async (req, res, next) => {
       password: hash,
     });
 
-    const accessToken = generateAccessToken(newUser);
+    const accessToken = await generateAccessToken(newUser);
 
-    const refreshToken = generateRefreshToken(newUser);
+    const refreshToken = await generateRefreshToken(newUser);
 
     // Create secure cookie with refresh token
     res.cookie("jwt", refreshToken, {

@@ -5,10 +5,20 @@ const RequestVendor = require("../../model/RequestVendor");
 
 const requestSignupController = async (req, res, next) => {
   try {
-    const { username, email, password, role, phone_no } = req.body;
-    if (!username || !email || !password || !role) {
+    const { username, email, password, role, phone_no, first_name, last_name } =
+      req.body;
+    if (
+      !username ||
+      !first_name ||
+      !last_name ||
+      !email ||
+      !password ||
+      !role ||
+      !phone_no
+    ) {
       throw new Error("All fields are required");
     }
+
     if (!validator.isEmail(email)) {
       throw new Error("Please enter a valid email.");
     }
