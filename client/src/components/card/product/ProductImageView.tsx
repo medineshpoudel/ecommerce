@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ProductImageViewProps {
@@ -6,9 +6,13 @@ export interface ProductImageViewProps {
 }
 
 const ProductImageView = ({ product }: ProductImageViewProps) => {
-  const [previewImageUrl, setPreviewImageUrl] = useState<string>(
-    product?.image_1
-  );
+  const [previewImageUrl, setPreviewImageUrl] = useState<string>();
+
+  useEffect(() => {
+    if (product) {
+      setPreviewImageUrl(product.image_1);
+    }
+  }, [product]);
 
   const onProductImageClick = (imageUrl: string) => {
     setPreviewImageUrl(imageUrl);
