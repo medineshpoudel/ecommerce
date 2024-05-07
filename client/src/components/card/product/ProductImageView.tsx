@@ -7,8 +7,9 @@ export interface ProductImageViewProps {
 
 const ProductImageView = ({ product }: ProductImageViewProps) => {
   const [previewImageUrl, setPreviewImageUrl] = useState<string>(
-    product?._image_1
+    product?.image_1
   );
+
   const onProductImageClick = (imageUrl: string) => {
     setPreviewImageUrl(imageUrl);
   };
@@ -21,24 +22,24 @@ const ProductImageView = ({ product }: ProductImageViewProps) => {
       <div className="h-1/2  flex p-2 mt-5">
         <div
           className="h-4/6 w-4/6 border-2 m-1 border-secondary hover:scale-110 transition-transform duration-300"
-          onClick={() => onProductImageClick(product._image_1)}
+          onClick={() => onProductImageClick(product?.image_1)}
         >
           <img
-            src={`${product._image_1}`}
+            src={`${product?.image_1}`}
             className="h-full w-full bg-opacity-85"
           />
         </div>
         <div
           className="h-4/6 w-4/6 border-2 m-1 border-secondary hover:scale-110 transition-transform duration-300"
-          onClick={() => onProductImageClick(product._image_2)}
+          onClick={() => onProductImageClick(product?.image_2)}
         >
-          <img src={product._image_2} className="h-full w-full bg-opacity-85" />
+          <img src={product?.image_2} className="h-full w-full bg-opacity-85" />
         </div>
         <div
           className="h-4/6 w-4/6 border-2 m-1 border-secondary hover:scale-110 transition-transform duration-300"
-          onClick={() => onProductImageClick(product._image_3)}
+          onClick={() => onProductImageClick(product?.image_3)}
         >
-          <img src={product._image_3} className="h-full w-full bg-opacity-85" />
+          <img src={product?.image_3} className="h-full w-full bg-opacity-85" />
         </div>
       </div>
       <p className="font-semibold text-center m-2 text-secondary">

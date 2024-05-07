@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../button/Button";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export interface FieldProps {
   name: string;
@@ -23,6 +25,25 @@ export interface FormProps {
   formClassName?: string;
 }
 
+const handleCloudinaryImageUpload = async (file: any) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "ydozer4i");
+  try {
+    const result = await axios.post(
+      `https://api.cloudinary.com/v1_1/${
+        import.meta.env.VITE_CLOUDINARY_PRESET
+      }/image/upload`,
+      formData
+    );
+    return result.data.url;
+  } catch {
+    toast.error("error");
+  }
+};
+
+const ImageFields: Array<{ name: string; file: any }> = [];
+
 const FormComponent = ({
   initialValues = {},
   formFields,
@@ -42,11 +63,28 @@ const FormComponent = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        onSubmit(values);
-        setSubmitting(false);
+        const uploadPromises = ImageFields.map((image) => {
+          return handleCloudinaryImageUpload(image.file).then((response) => {
+            return { name: image.name, url: response };
+          });
+        });
+
+        Promise.all(uploadPromises).then((responses) => {
+          const updatedValues = { ...values };
+          responses.forEach((response) => {
+            updatedValues[response.name] = response.url;
+          });
+
+          console.log(updatedValues);
+          onSubmit(updatedValues);
+          setSubmitting(false);
+        });
+
+        // Clear ImageFields after processing
+        ImageFields.length = 0;
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, setFieldValue }) => (
         <Form
           className={`form p-2 ${formClassName}`}
           encType="multipart/form-data"
@@ -91,15 +129,34 @@ const FormComponent = ({
                       </span>
                     </label>
                     <br />
-
-                    <Field
-                      type={field.type ?? "text"}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      className="field border-2 w-full rounded-md my-2 p-1"
-                      disabled={field.disabled}
-                      key={field.name}
-                    />
+                    {field.type === "file" ? (
+                      <input
+                        type="file"
+                        onChange={(event: any) => {
+                          ImageFields.push({
+                            name: field.name,
+                            file: event.currentTarget.files[0],
+                          });
+                          setFieldValue(
+                            field.name,
+                            event.currentTarget.files[0]
+                          );
+                        }}
+                        placeholder={field.placeholder}
+                        className="field border-2 w-full rounded-md my-2 p-1"
+                        disabled={field.disabled}
+                        key={field.name}
+                      />
+                    ) : (
+                      <Field
+                        type={field.type ?? "text"}
+                        name={field.name}
+                        placeholder={field.placeholder}
+                        className="field border-2 w-full rounded-md my-2 p-1"
+                        disabled={field.disabled}
+                        key={field.name}
+                      />
+                    )}
 
                     <ErrorMessage
                       name={field.name}

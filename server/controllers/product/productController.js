@@ -1,5 +1,4 @@
 const Product = require("../../model/Product");
-
 const getProductsOfVedor = async (req, res, next) => {
   try {
     const product = await Product.aggregate([
@@ -33,19 +32,37 @@ const getProductController = async (req, res, next) => {
 };
 
 const postProductController = async (req, res, next) => {
-  const { title, actualPrice, discountedPrice, productType } = req.body;
+  const {
+    title,
+    actualPrice,
+    discountedPrice,
+    productType,
+    image_1,
+    image_2,
+    image_3,
+    image_4,
+  } = req.body;
+  console.log(req.body);
+
   const user = req.user;
-  if (!title || !actualPrice || !discountedPrice || !productType) {
+  if (
+    !title ||
+    !actualPrice ||
+    !discountedPrice ||
+    !productType ||
+    !image_1 ||
+    !image_2 ||
+    !image_3 ||
+    !image_4
+  ) {
     return res
       .status(400)
       .json({ error: "Please fill up all the required fields." });
   }
+
   try {
     const newProduct = await Product.create({
-      title,
-      actualPrice,
-      discountedPrice,
-      productType,
+      ...req.body,
       createdBy: user?._id,
     });
     res.status(200).json(newProduct);

@@ -15,7 +15,7 @@ class BaseService {
     const axiosConfig: AxiosRequestConfig = {
       method: type,
       data,
-      url: `http://localhost:8000/${query}`,
+      url: `${import.meta.env.VITE_BASE_URL}/${query}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage[GodamLocalStorage.acessToken]}`,

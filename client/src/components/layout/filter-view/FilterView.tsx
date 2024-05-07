@@ -4,7 +4,7 @@ import SearchBar from "../../search-bar/SearchBar";
 import ProductDetailSection from "../detail-view/ProductDetailSection";
 
 const FilterView = () => {
-  const { data, isFetching, onActionHandler } = useAppQuery({
+  const { data, isFetching } = useAppQuery({
     query: "product-all",
   });
 

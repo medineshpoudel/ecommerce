@@ -6,7 +6,7 @@ import ProductGridColumns from "./ProductGridColumns";
 import ProductValidationSchema from "./ProductValidationSchema";
 
 const Product = () => {
-  const { data, isFetching, onActionHandler } = useAppQuery({
+  const { data, onActionHandler } = useAppQuery({
     query: "vendor/product",
   });
 

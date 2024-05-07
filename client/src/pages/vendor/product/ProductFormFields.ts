@@ -26,43 +26,47 @@ const ProductFormFields: any = [
   {
     name: "feature_1",
     label: "Feature 1 ",
+    required: true,
   },
   {
     name: "feature_2",
     label: "Feature 2 ",
+    required: true,
   },
   {
     name: "feature_3",
     label: "Feature 3 ",
+    required: true,
   },
   {
     name: "feature_4",
     label: "Feature 3 ",
+    required: true,
   },
-  // {
-  //   name: "image_1",
-  //   label: "Image 1 ",
-  //   type: "file",
-  //   required: true,
-  // },
-  // {
-  //   name: "image_2",
-  //   label: "Image 2 ",
-  //   type: "file",
-  //   required: true,
-  // },
-  // {
-  //   name: "image_3",
-  //   label: "Image 3 ",
-  //   type: "file",
-  //   required: true,
-  // },
-  // {
-  //   name: "image_4",
-  //   label: "Image 4 ",
-  //   type: "file",
-  //   required: true,
-  // },
+  {
+    name: "image_1",
+    label: "Image 1 ",
+    type: "file",
+    required: true,
+  },
+  {
+    name: "image_2",
+    label: "Image 2 ",
+    type: "file",
+    required: true,
+  },
+  {
+    name: "image_3",
+    label: "Image 3 ",
+    type: "file",
+    required: true,
+  },
+  {
+    name: "image_4",
+    label: "Image 4 ",
+    type: "file",
+    required: true,
+  },
 ];
 
 export default ProductFormFields;

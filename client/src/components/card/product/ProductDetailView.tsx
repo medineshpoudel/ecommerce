@@ -10,12 +10,6 @@ export interface ProductDetailProps {
   product: any[];
 }
 
-const DummyProduct = {
-  _image_1: "/public/test-image.png",
-  _image_2: "/public/test-image-5.jpeg",
-  _image_3: "/public/test-image-6.jpeg",
-};
-
 const ProductViewCorners = () => (
   <>
     <div className="absolute h-24 w-24 bottom-14 left-32 overflow-hidden z-10">
@@ -33,25 +27,24 @@ const ProductViewCorners = () => (
   </>
 );
 
-const ProductDetailView = ({ product = DummyProduct }: any) => {
+const ProductDetailView = () => {
   const { id } = useParams();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, isFetching, onActionHandler } = useAppQuery({
+  const { data, onActionHandler } = useAppQuery({
     query: `product-order/${id}`,
   });
 
   const onPurchage = () => {
     onActionHandler({ action: ActionHandlerActions.Add, item: data });
   };
-
   return (
     <div className="flex justify-center items-center h-full relative overflow-hidden">
       <ProductViewCorners />
       <div className="h-5/6 w-5/6  shadow-lg flex">
-        <ProductImageView product={product} />
+        <ProductImageView product={data} />
         <div className="h-full w-1/2 product-detail-right p-2">
-          <ProductDetail product={data ?? {}} />
+          <ProductDetail product={data} />
           <div className="flex w-full justify-center">
             <Button
               text="Purchage"

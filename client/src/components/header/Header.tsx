@@ -12,7 +12,7 @@ export interface HeaderProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Header = ({ username, isLoggedIn, logoutHandler }: HeaderProps) => {
+const Header = ({ isLoggedIn, logoutHandler }: HeaderProps) => {
   const navigate = useNavigate();
   const role = localStorage[GodamLocalStorage.role];
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 const {
   postProductController,
   getProductsOfVedor,
@@ -12,6 +13,9 @@ const {
 } = require("../../controllers/product/productOrderController");
 
 const router = express.Router();
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.post("/product", postProductController);
 router.patch("/product", updateProductController);

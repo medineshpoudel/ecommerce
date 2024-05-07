@@ -9,28 +9,19 @@ export const fetchData = async (query: string) => {
 
 export const addMutation = async (
   query: string,
-  item: any,
+  item: any
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  successMessage?: string
 ) => {
   const result: any = await BaseService.add({ query, data: item });
   return result;
 };
 
-export const updateMutation = async (
-  query: string,
-  item: any,
-  successMessage?: string
-) => {
+export const updateMutation = async (query: string, item: any) => {
   const result: any = await BaseService.update({ query, data: item });
   return result;
 };
 
-export const deleteMutation = async (
-  query: string,
-  item: any,
-  successMessage?: string
-) => {
+export const deleteMutation = async (query: string, item: any) => {
   const result: any = await BaseService.delete({ query, data: item });
   return result;
 };

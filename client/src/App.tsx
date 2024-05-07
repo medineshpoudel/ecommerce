@@ -13,7 +13,7 @@ import { Navigate } from "react-router-dom";
 import { GodamLocalStorage } from "./constants/constants";
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(
+  const [isLoggedIn] = useState(
     localStorage[GodamLocalStorage.acessToken] !== undefined
   );
 

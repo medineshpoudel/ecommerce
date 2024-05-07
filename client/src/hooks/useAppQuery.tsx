@@ -55,7 +55,7 @@ const useAppQuery = ({ query }: UseAppProps) => {
   });
 
   if (error) {
-    toast.error(error);
+    toast.error(error?.message);
   }
 
   const onActionHandler = ({ action, item }: any) => {
