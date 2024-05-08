@@ -1,4 +1,6 @@
 const ProductOrder = require("../../model/ProductOrder");
+const { sendEmail } = require("../../utilities/sendEmail");
+const User = require("../../model/User");
 
 const postProductOrderController = async (req, res, next) => {
   const user = req.user;
@@ -19,15 +21,39 @@ const postProductOrderController = async (req, res, next) => {
 };
 
 const updateProductOrderController = async (req, res, next) => {
-  const { _id } = req.body;
+  const { _id, orderedById } = req.body;
+
   try {
     const updatedProductOrder = await ProductOrder.findOneAndUpdate(
       { _id },
       { $set: req.body },
-      { new: true } // This option returns the updated document
+      { new: true }
     );
+
+    if (req.body.status === "Proceed To Delivery") {
+      const { email, username } = await User.findById(orderedById);
+      await sendEmail({
+        from_name: "Godam",
+        to_name: username,
+        to_email: email,
+        message: `Your Product Request Has Been Accepted And Forwared To Delivery. <br>
+          Product Name: ${updatedProductOrder.title}`,
+      });
+    }
+
+    if (req.body.status === "Reject") {
+      const { email, username } = await User.findById(orderedById);
+      await sendEmail({
+        from_name: "Godam",
+        to_name: username,
+        to_email: email,
+        message: `Your Product Request Has Been Rejected`,
+      });
+    }
+
     res.status(200).json(updatedProductOrder);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
