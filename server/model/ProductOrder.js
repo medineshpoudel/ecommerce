@@ -22,6 +22,14 @@ const productOrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    quantity: {
+      type: String,
+      required: true,
+    },
+    totalAmount: {
+      type: String,
+      required: true,
+    },
     status: {
       type: [String],
       enum: ["Proceed To Delivery", "Reject", "Pending"],

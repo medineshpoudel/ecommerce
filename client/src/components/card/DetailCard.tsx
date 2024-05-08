@@ -18,10 +18,20 @@ export const ProductViewCorners = () => (
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DetailCard = ({ children }: { children: ReactNode }) => {
+const DetailCard = ({
+  children,
+  className,
+  showCorner = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  showCorner?: boolean;
+}) => {
   return (
-    <div className="flex justify-center items-center h-full w-full  overflow-hidden">
-      <ProductViewCorners />
+    <div
+      className={`flex justify-center items-center h-full w-full  overflow-hidden ${className}`}
+    >
+      {showCorner && <ProductViewCorners />}
       <div className="h-5/6 w-5/6  shadow-lg flex relative">{children}</div>
     </div>
   );

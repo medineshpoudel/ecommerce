@@ -1,5 +1,6 @@
 import ProductDetail from "../components/card/product/ProductDetailView";
 import CartDetailView from "../components/layout/detail-view/CardDetailView";
+import ProductOrderDetail from "../components/layout/detail-view/ProductOrderDetai";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/registration/login/Login";
@@ -65,6 +66,12 @@ const AppRoutes = [
     route: "/cart",
     role: ["vendor", "user"],
     page: <CartDetailView />,
+  },
+  {
+    name: "Product Order",
+    route: "/product-order/:id",
+    role: ["vendor", "user"],
+    page: <ProductOrderDetail />,
   },
 ];
 

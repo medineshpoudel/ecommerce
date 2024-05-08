@@ -6,16 +6,17 @@ const postProductOrderController = async (req, res, next) => {
   const user = req.user;
   const { title, _id: productId, createdBy } = req.body;
   try {
-    const resposne = await ProductOrder.create({
+    await ProductOrder.create({
       title,
       productId,
       orderedById: user._id,
       orderedByName: user.email,
       productCreatedBy: createdBy,
+      quantity: req.body.quantity,
+      totalAmount: req.body.totalAmount,
     });
     res.status(204);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -78,9 +79,27 @@ const getProductOrdersController = async (req, res, next) => {
   }
 };
 
+const getProductVendor = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const vendor = await User.findById(
+      id,
+      "-_id -createdAt -updatedAt -status -__v"
+    );
+    res.status(200).json({
+      name: vendor.username,
+      phone: vendor.phone_no,
+      location: "New Road",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   postProductOrderController,
   getProductOrdersController,
   updateProductOrderController,
   deleteProductOrderController,
+  getProductVendor,
 };
