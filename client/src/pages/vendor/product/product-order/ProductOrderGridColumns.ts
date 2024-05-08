@@ -4,5 +4,7 @@ const ProductOrderGridColumns = [
   { field: "orderedById", filter: true, floatingFilter: true },
   { field: "orderedByName", filter: true, floatingFilter: true },
   { field: "status", filter: true, floatingFilter: true },
+  { field: "quantity", filter: true, floatingFilter: true },
+  { field: "totalAmount", filter: true, floatingFilter: true },
 ];
 export default ProductOrderGridColumns;
