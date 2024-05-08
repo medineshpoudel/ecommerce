@@ -6,8 +6,7 @@ import ProductDetail from "./ProductDetail";
 import ProductImageView from "./ProductImageView";
 import useAppQuery from "../../../hooks/useAppQuery";
 import DetailCard from "../DetailCard";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../app/store";
+import { useDispatch } from "react-redux";
 import { placeOrder } from "../../../features/user/orderSlice";
 import { useState } from "react";
 
