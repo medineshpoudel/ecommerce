@@ -1,6 +1,7 @@
 const ProductOrder = require("../../model/ProductOrder");
 const { sendEmail } = require("../../utilities/sendEmail");
 const User = require("../../model/User");
+const Product = require("../../model/Product");
 
 const postProductOrderController = async (req, res, next) => {
   const user = req.user;
@@ -15,6 +16,12 @@ const postProductOrderController = async (req, res, next) => {
       quantity: req.body.quantity,
       totalAmount: req.body.totalAmount,
     });
+    const product = await Product.findById(productId);
+    await ProductOrder.findOneAndUpdate(
+      { _id },
+      { $set: { stock: product.stock - req.body.quantity } },
+      { new: true }
+    );
     res.status(204);
   } catch (error) {
     next(error);

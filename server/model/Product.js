@@ -46,6 +46,10 @@ const productSchema = new mongoose.Schema(
     createdBy: {
       type: String,
     },
+    stock: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

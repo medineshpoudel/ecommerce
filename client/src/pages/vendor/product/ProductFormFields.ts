@@ -67,6 +67,12 @@ const ProductFormFields: any = [
     type: "file",
     required: true,
   },
+  {
+    name: "stock",
+    label: "Stock",
+    type: "number",
+    required: true,
+  },
 ];
 
 export default ProductFormFields;

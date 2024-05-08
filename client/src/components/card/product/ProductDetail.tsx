@@ -1,9 +1,41 @@
+import { useState } from "react";
+
 export interface ProductDetailProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   product: any;
+  handleQuantity?: (quantity: number) => void;
 }
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
+const ProductDetail = ({
+  product,
+  handleQuantity = () => {},
+}: ProductDetailProps) => {
+  const [quantity, setQuantity] = useState<number>(0);
+  const [error, setError] = useState<string>();
+
+  const handleAdd = () => {
+    setError("");
+    setQuantity((prevState) => {
+      if (prevState < product?.stock) {
+        handleQuantity(prevState + 1);
+        return prevState + 1;
+      }
+      setError("There are not enough product in stock");
+      return prevState;
+    });
+  };
+
+  const handleReduce = () => {
+    setError("");
+    setQuantity((prevState) => {
+      if (prevState > 0) {
+        handleQuantity(prevState - 1);
+        return prevState - 1;
+      }
+      return prevState;
+    });
+  };
+
   return (
     <>
       <p className="text-3xl font-semibold z-20 relative">{product?.title}</p>
@@ -26,6 +58,16 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             Rs {product?.discountedPrice}
           </span>
         </p>
+        <p>
+          <span className="font-semibold text-gray text-md m-2">In Stock:</span>
+          {product?.stock}
+        </p>
+      </div>
+      <div>
+        <button onClick={handleAdd}>+</button>
+        <span>{quantity}</span>
+        <button onClick={handleReduce}>-</button>
+        {error && <span className="text-red">{error}</span>}
       </div>
     </>
   );

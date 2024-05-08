@@ -14,8 +14,8 @@ const orderSlice = createSlice({
         title: product.title,
         image: product.image_1,
         price: product.discountedPrice,
-        quantity: 1,
-        totalAmount: product.discountedPrice * 1,
+        quantity: product.quantity,
+        totalAmount: product.discountedPrice * product.quantity,
       };
       state.length = 0;
       state.push({ product: productToOrder, vendor });

@@ -27,8 +27,8 @@ const ProductOrderDetail = () => {
       });
       toast.success(ToastMessage.OrderPlacedSuccess);
       navigate("/home");
-    } catch {
-      console.log("rrr");
+    } catch (error) {
+      toast.error("error placing order");
     }
   };
 

@@ -41,6 +41,7 @@ const postProductController = async (req, res, next) => {
     image_2,
     image_3,
     image_4,
+    stock,
   } = req.body;
   console.log(req.body);
 
@@ -53,7 +54,8 @@ const postProductController = async (req, res, next) => {
     !image_1 ||
     !image_2 ||
     !image_3 ||
-    !image_4
+    !image_4 ||
+    !stock
   ) {
     return res
       .status(400)
@@ -67,7 +69,6 @@ const postProductController = async (req, res, next) => {
     });
     res.status(200).json(newProduct);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
