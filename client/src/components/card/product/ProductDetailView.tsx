@@ -53,7 +53,7 @@ const ProductDetailView = () => {
               text="Purchage"
               onClick={onPurchage}
               style="w-96 items-center"
-              disabled={data.stock === 0}
+              disabled={data?.stock === 0}
             ></Button>
           </div>
         </div>
