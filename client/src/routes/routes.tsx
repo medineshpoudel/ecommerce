@@ -1,4 +1,5 @@
 import ProductDetail from "../components/card/product/ProductDetailView";
+import CartDetailView from "../components/layout/detail-view/CardDetailView";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/registration/login/Login";
@@ -58,6 +59,12 @@ const AppRoutes = [
     route: "/not-found",
     role: ["vendor", "user"],
     page: <NotFound />,
+  },
+  {
+    name: "Cart",
+    route: "/cart",
+    role: ["vendor", "user"],
+    page: <CartDetailView />,
   },
 ];
 

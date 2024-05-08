@@ -30,6 +30,11 @@ const handleCloudinaryImageUpload = async (file: any) => {
   formData.append("file", file);
   formData.append("upload_preset", "ydozer4i");
   try {
+    console.log(
+      `https://api.cloudinary.com/v1_1/${
+        import.meta.env.VITE_CLOUDINARY_PRESET
+      }/image/upload`
+    );
     const result = await axios.post(
       `https://api.cloudinary.com/v1_1/${
         import.meta.env.VITE_CLOUDINARY_PRESET

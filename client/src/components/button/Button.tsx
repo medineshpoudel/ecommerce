@@ -23,7 +23,7 @@ const Button = ({
     <button
       className={` ${buttonColor ?? "bg-primary"} text-white ${
         rounded ?? "rounnded-3xl"
-      } m-1 ${style}`}
+      }  ${style}`}
       onClick={onClick}
       type={type}
       disabled={disabled}

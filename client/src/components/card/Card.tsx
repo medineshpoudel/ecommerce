@@ -1,14 +1,18 @@
+import { ProductInterface } from "../../interface/ProductInterface";
 import Button from "../button/Button";
 
 export interface CardProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   item: any;
   onCardClickHandler: (itemId: string) => void;
+  onAddToCart: (product: ProductInterface) => void;
 }
 
-const Card = ({ item, onCardClickHandler }: CardProps) => {
+const Card = ({ item, onCardClickHandler, onAddToCart }: CardProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onButtonClick = () => {};
+  const addToCart = () => {
+    onAddToCart(item);
+  };
   const onItemClick = () => {
     onCardClickHandler(item._id);
   };
@@ -30,7 +34,7 @@ const Card = ({ item, onCardClickHandler }: CardProps) => {
           Rs {item.discountedPrice}
         </span>
       </div>
-      <Button text="Add to Cart" onClick={onButtonClick} rounded={false} />
+      <Button text="Add to Cart" onClick={addToCart} rounded={false} />
     </div>
   );
 };

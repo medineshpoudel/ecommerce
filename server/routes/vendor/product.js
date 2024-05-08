@@ -10,6 +10,8 @@ const {
 
 const {
   getProductOrdersController,
+  updateProductOrderController,
+  deleteProductOrderController,
 } = require("../../controllers/product/productOrderController");
 
 const router = express.Router();
@@ -23,5 +25,7 @@ router.delete("/product", deleteProductController);
 router.get("/product", getProductsOfVedor);
 router.get("/product-all", getAllProducts);
 router.get("/product-order", getProductOrdersController);
+router.patch("/product-order", updateProductOrderController);
+router.delete("/product-order", deleteProductOrderController);
 
 module.exports = router;

@@ -5,8 +5,13 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { ProductInterface } from "../../interface/ProductInterface";
 
-const SearchBar = () => {
+export interface SearchBarProps {
+  productsInCart: Array<ProductInterface>;
+}
+
+const SearchBar = ({ productsInCart }: SearchBarProps) => {
   return (
     <div className="flex justify-center items-center w-full space-x-10">
       <div className="relative h-12 w-2/6 border-2 rounded-sm border-primary  flex space-x-5 items-center">
@@ -26,9 +31,12 @@ const SearchBar = () => {
             My Favorites
           </Link>
         </div>
-        <div>
-          <FontAwesomeIcon icon={faCartShopping} />{" "}
-          <Link className="text-gray" to="cart">
+        <div className="relative">
+          <FontAwesomeIcon icon={faCartShopping} />
+          <span className="absolute  left-11 bottom-3 font-bold">
+            {productsInCart.length}
+          </span>
+          <Link className="text-gray" to="/cart">
             Cart
           </Link>
         </div>
