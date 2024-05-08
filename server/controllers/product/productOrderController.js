@@ -16,9 +16,13 @@ const postProductOrderController = async (req, res, next) => {
       quantity: req.body.quantity,
       totalAmount: req.body.totalAmount,
     });
-    const product = await Product.findById(productId);
-    await ProductOrder.findOneAndUpdate(
-      { _id },
+    const product = await Product.findOne({ _id: productId });
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    await Product.findOneAndUpdate(
+      { _id: productId },
       { $set: { stock: product.stock - req.body.quantity } },
       { new: true }
     );

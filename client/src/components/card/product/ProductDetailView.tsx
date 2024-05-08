@@ -17,7 +17,6 @@ export interface ProductDetailProps {
 
 const ProductDetailView = () => {
   const { id } = useParams();
-  const order = useSelector((state: RootState) => state.order);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
@@ -55,6 +54,7 @@ const ProductDetailView = () => {
               text="Purchage"
               onClick={onPurchage}
               style="w-96 items-center"
+              disabled={data.stock === 0}
             ></Button>
           </div>
         </div>
