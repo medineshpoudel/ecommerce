@@ -7,7 +7,7 @@ import ProductOrderValidationSchema from "./ProductOrderValidationSchema";
 
 const ProductOrders = () => {
   const { data, onActionHandler } = useAppQuery({
-    query: "vendor//product-order",
+    query: "vendor/product-order",
   });
 
   return (
