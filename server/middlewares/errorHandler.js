@@ -11,7 +11,16 @@ const notFoundHandler = (req, res, next) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  if (!notFoundHandled) {
+  if (notFoundHandled) {
+    const errStatus = error.statusCode || 500;
+    const errMsg = error.message || NOT_FOUND;
+    res.status(errStatus).json({
+      success: false,
+      status: errStatus,
+      message: errMsg,
+      stack: process.env.NODE_ENV === "development" ? error.stack : {},
+    });
+  } else {
     const errStatus = error.statusCode || 500;
     const errMsg = error.message || SOMETHING_WENT_WRONG;
     res.status(errStatus).json({

@@ -1,13 +1,12 @@
 const express = require("express");
 const {
   upgradeUserController,
-} = require("../../controllers/auth/authController");
-
+} = require("../../controllers/admin/authController");
 const {
   getRequestVendorController,
   acceptRequestVendorController,
   rejectRequestVendorController,
-} = require("../../controllers/auth/requestVendorController");
+} = require("../../controllers/admin/requestVendor");
 
 const router = express.Router();
 

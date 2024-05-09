@@ -3,15 +3,17 @@ const {
   loginController,
   signUpController,
   logoutController,
-  upgradeUserController,
   getCurrentLoggedInUser,
   verifyTokenController,
-} = require("../controllers/auth/authController");
-const requireAuth = require("../middlewares/requireAuth");
-const handleRefreshToken = require("../controllers/auth/refreshTokenController");
+} = require("../../controllers/user/authController");
+const {
+  upgradeUserController,
+} = require("../../controllers/admin/authController");
+const requireAuth = require("../../middlewares/requireAuth");
+const handleRefreshToken = require("../../controllers/user/refreshTokenController");
 const {
   requestSignupController,
-} = require("../controllers/auth/requestVendorController");
+} = require("../../controllers/user/requestVendorController");
 
 const router = express.Router();
 
@@ -19,7 +21,7 @@ router.post("/login", loginController);
 router.post("/signup", signUpController);
 
 //vendor authentication
-router.post("vendor/signup", requestSignupController);
+router.post("/vendor/signup", requestSignupController);
 
 router.post("/upgradeUser", upgradeUserController);
 router.use(requireAuth);
