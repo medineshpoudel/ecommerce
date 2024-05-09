@@ -1,10 +1,10 @@
 const express = require("express");
 const productRoutes = require("./product");
-const requireAuth = require("../../middlewares/requireAuth");
+const productVendorRoutes = require("./productVendor");
 
 const router = express.Router();
 
 router.use(productRoutes);
-router.use(requireAuth);
+router.use(productVendorRoutes);
 
 module.exports = router;

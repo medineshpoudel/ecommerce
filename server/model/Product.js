@@ -19,49 +19,36 @@ const productSchema = new mongoose.Schema(
       required: true,
       enum: ["Laptop", "Mobile", "Headphone"],
     },
-    freature_1: { type: String },
-    freature_2: { type: String },
-    freature_3: { type: String },
-    freature_4: { type: String },
+    feature_1: { type: String, required: true },
+    feature_2: { type: String, required: true },
+    feature_3: { type: String, required: true },
+    feature_4: { type: String, required: true },
     image_1: {
-      publicId: {
-        type: String,
-        require: true,
-      },
-      url: {
-        type: String,
-        require: true,
-      },
+      type: String,
+      required: true,
+    },
+    image_1: {
+      type: String,
+      required: true,
     },
     image_2: {
-      publicId: {
-        type: String,
-        require: true,
-      },
-      url: {
-        type: String,
-        require: true,
-      },
+      type: String,
+      required: true,
     },
     image_3: {
-      publicId: {
-        type: String,
-        require: true,
-      },
-      url: {
-        type: String,
-        require: true,
-      },
+      type: String,
+      required: true,
     },
     image_4: {
-      publicId: {
-        type: String,
-        require: true,
-      },
-      url: {
-        type: String,
-        require: true,
-      },
+      type: String,
+      required: true,
+    },
+    createdBy: {
+      type: String,
+    },
+    stock: {
+      type: Number,
+      required: true,
     },
   },
   {

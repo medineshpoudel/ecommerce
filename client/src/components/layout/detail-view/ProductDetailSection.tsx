@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 import Card from "../../card/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../app/store";
+import { addToCart } from "../../../features/user/cartSlice";
+import { ProductInterface } from "../../../interface/ProductInterface";
 
 export interface DetailSectionProps {
   title: string;
@@ -11,10 +15,16 @@ const ProductDetailSection = ({
   title = "Title",
   products,
 }: DetailSectionProps) => {
+  const cart = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  console.log(cart);
   const navigate = useNavigate();
   const onDetailViewCardClick = (itemId: any) => {
-    console.log(itemId);
-    navigate("/product-detail");
+    navigate(`/product-detail/${itemId}`);
+  };
+
+  const handleAddToCart = (product: ProductInterface) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -23,11 +33,12 @@ const ProductDetailSection = ({
         {title.toUpperCase()}
       </h2>
       <div className="flex flex-nowrap space-x-2">
-        {products.map((product) => (
+        {products?.map((product) => (
           <Card
-            key={product.id}
+            key={product._id}
             item={product}
             onCardClickHandler={onDetailViewCardClick}
+            onAddToCart={handleAddToCart}
           />
         ))}
       </div>

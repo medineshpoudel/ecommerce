@@ -3,9 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
-import App from "./App.tsx";
+import App from "./App";
 import "./index.css";
 import { HashRouter } from "react-router-dom";
+import ModalProvider from "./context/ModalProvider";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <HashRouter>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </HashRouter>
       </QueryClientProvider>
     </Provider>

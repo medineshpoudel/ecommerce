@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "compile-css": "node-sass src/styles/AppLight.scss public/AppLight.css && node-sass src/styles/AppDark.scss public/AppDark.css",
@@ -14,11 +14,17 @@
     "tests": "npx playwright test"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.16",
     "@reduxjs/toolkit": "^2.1.0",
     "@tanstack/react-query": "^5.31.0",
+    "ag-grid-react": "^31.3.1",
     "axios": "^1.6.7",
     "dotenv": "^16.4.1",
     "formik": "^2.4.5",

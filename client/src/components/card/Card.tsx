@@ -1,23 +1,25 @@
+import { ProductInterface } from "../../interface/ProductInterface";
 import Button from "../button/Button";
 
 export interface CardProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   item: any;
   onCardClickHandler: (itemId: string) => void;
+  onAddToCart: (product: ProductInterface) => void;
 }
 
-const Card = ({ item, onCardClickHandler }: CardProps) => {
+const Card = ({ item, onCardClickHandler, onAddToCart }: CardProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onButtonClick = () => {};
-
+  const addToCart = () => {
+    onAddToCart(item);
+  };
   const onItemClick = () => {
-    console.log("ho");
-    onCardClickHandler(item.id);
+    onCardClickHandler(item._id);
   };
   return (
     <div className="relative flex flex-col space-y-2  w-96 h-100 rounded-md p-2 shadow-xl">
       <img
-        src={item.imageUrl}
+        src={item.image_1}
         className="w-full h-40  border-b-2 border-primary shrink-0"
       />
       <div className="p-3 items-center">
@@ -32,7 +34,7 @@ const Card = ({ item, onCardClickHandler }: CardProps) => {
           Rs {item.discountedPrice}
         </span>
       </div>
-      <Button text="Add to Cart" onClick={onButtonClick} rounded={false} />
+      <Button text="Add to Cart" onClick={addToCart} rounded={false} />
     </div>
   );
 };
