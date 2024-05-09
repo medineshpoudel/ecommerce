@@ -3,15 +3,17 @@ const {
   loginController,
   signUpController,
   logoutController,
-  upgradeUserController,
   getCurrentLoggedInUser,
   verifyTokenController,
-} = require("../controllers/auth/authController");
-const requireAuth = require("../middlewares/requireAuth");
-const handleRefreshToken = require("../controllers/auth/refreshTokenController");
+} = require("../../controllers/user/authController");
+const {
+  upgradeUserController,
+} = require("../../controllers/admin/authController");
+const requireAuth = require("../../middlewares/requireAuth");
+const handleRefreshToken = require("../../controllers/user/refreshTokenController");
 const {
   requestSignupController,
-} = require("../controllers/auth/requestVendorController");
+} = require("../../controllers/user/requestVendorController");
 
 const router = express.Router();
 
