@@ -19,6 +19,14 @@ const app = express();
 
 app.use(
   cors({
+    allowedHeaders: [
+      "Authorization",
+      "refresh_token",
+      "cart_code",
+      "Content-Type",
+      "Accept",
+      "responsetype",
+    ],
     origin: [
       "https://godam-backend.onrender.com",
       "http://127.0.0.1:3000",
@@ -26,8 +34,8 @@ app.use(
       "http://localhost:3000",
     ],
     credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   }),
-  express.json()
 );
 
 app.use(cookieParser());
