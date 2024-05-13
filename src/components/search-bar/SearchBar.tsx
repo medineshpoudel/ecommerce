@@ -1,17 +1,19 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  faSearch,
-  faHeart,
   faCartShopping,
+  faHeart,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { ProductInterface } from "../../interface/ProductInterface";
 
 export interface SearchBarProps {
   productsInCart: Array<ProductInterface>;
+  handleSearch: (title: string) => void;
 }
 
-const SearchBar = ({ productsInCart }: SearchBarProps) => {
+const SearchBar = ({ productsInCart, handleSearch }: SearchBarProps) => {
   return (
     <div className="flex justify-center items-center w-full space-x-10">
       <div className="relative h-12 w-2/6 border-2 rounded-sm border-primary  flex space-x-5 items-center">
@@ -19,6 +21,7 @@ const SearchBar = ({ productsInCart }: SearchBarProps) => {
           className="foucs: outline-none w-full h-full pl-5"
           type="text"
           placeholder="Search anything"
+          onChange={(e: any) => handleSearch(e.target.value)}
         ></input>
         <button className="bg-primary h-full text-white rounded-none">
           <FontAwesomeIcon icon={faSearch} />

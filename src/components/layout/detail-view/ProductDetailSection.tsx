@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from "react-router-dom";
-import Card from "../../card/Card";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../../app/store";
 import { addToCart } from "../../../features/user/cartSlice";
 import { ProductInterface } from "../../../interface/ProductInterface";
+import Card from "../../card/Card";
 
 export interface DetailSectionProps {
   title: string;
@@ -28,7 +28,7 @@ const ProductDetailSection = ({
   };
 
   return (
-    <div className="mt-10 shadow-md  bg-lightGray">
+    <div className="shadow-md bg-lightGray">
       <h2 className="text-2xl text-center font-bold m-3">
         {title.toUpperCase()}
       </h2>
