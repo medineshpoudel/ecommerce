@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import CartView from "../../card/cart/CartView";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../../app/store";
 import { removeFromCart } from "../../../features/user/cartSlice";
-import { useEffect } from "react";
+import CartView from "../../card/cart/CartView";
 
 const CartDetailView = () => {
   const navigate = useNavigate();
@@ -14,7 +14,8 @@ const CartDetailView = () => {
   const dispatch = useDispatch();
 
   const handleBuy = (productId: string) => {
-    navigate(`/product-buy/${productId}`);
+    console.log(productId);
+    navigate(`/product-detail/${productId}`);
   };
   const handleRemoveItemFromCart = (productId: string) => {
     dispatch(removeFromCart(productId));

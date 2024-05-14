@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { placeOrder } from "../../../features/user/orderSlice";
+import useAppQuery from "../../../hooks/useAppQuery";
 import Button from "../../button/Button";
+import DetailCard from "../DetailCard";
 import ProductDetail from "./ProductDetail";
 import ProductImageView from "./ProductImageView";
-import useAppQuery from "../../../hooks/useAppQuery";
-import DetailCard from "../DetailCard";
-import { useDispatch } from "react-redux";
-import { placeOrder } from "../../../features/user/orderSlice";
-import { useState } from "react";
 
 export interface ProductDetailProps {
   product: any[];

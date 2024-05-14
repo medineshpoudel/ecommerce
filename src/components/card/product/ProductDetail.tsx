@@ -20,7 +20,7 @@ const ProductDetail = ({
         handleQuantity(prevState + 1);
         return prevState + 1;
       }
-      setError("There are not enough product in stock");
+      setError("There are not enough products in stock");
       return prevState;
     });
   };
@@ -37,39 +37,70 @@ const ProductDetail = ({
   };
 
   return (
-    <>
-      <p className="text-3xl font-semibold z-20 relative">{product?.title}</p>
-      <div className="p-2 m-2 about-product ">
-        <p className="font-bold text-xl">About Product</p>
-        <ul className="text-lg list-disc ml-10">
-          <li>{product?.feature_1}</li>
-          <li>{product?.feature_2}</li>
-          <li>{product?.feature_3}</li>
-          <li>{product?.feature_4}</li>
-        </ul>
+    <div className="max-w-lg mx-auto bg-white  rounded-lg overflow-hidden">
+      <div className="px-6 py-4">
+        <h1 className="text-3xl font-semibold mb-2">{product?.title}</h1>
+        <div className="mb-4 bg-gray-100 p-4 rounded-lg">
+          <p className="font-bold text-xl mb-2">About Product</p>
+          <ul className="list-disc ml-6">
+            <li className="mb-2">
+              <span className="font-semibold">Feature 1:</span>{" "}
+              {product?.feature_1}
+            </li>
+            <li className="mb-2">
+              <span className="font-semibold">Feature 2:</span>{" "}
+              {product?.feature_2}
+            </li>
+            <li className="mb-2">
+              <span className="font-semibold">Feature 3:</span>{" "}
+              {product?.feature_3}
+            </li>
+            <li className="mb-2">
+              <span className="font-semibold">Feature 4:</span>{" "}
+              {product?.feature_4}
+            </li>
+          </ul>
+        </div>
+
+        <div className="mb-4">
+          <p>
+            Price:
+            <span className="line-through text-gray-600 mr-2">
+              Rs {product?.actualPrice}
+            </span>
+            <span className="font-semibold text-primary">
+              Rs {product?.discountedPrice}
+            </span>
+          </p>
+        </div>
+        <div className="flex items-center gap-10">
+          <>
+            <p>
+              <span className="font-semibold text-gray-600 mr-2">
+                In Stock:
+              </span>
+              {product?.stock}
+            </p>
+          </>
+          <>
+            <button
+              className="px-3 py-2 bg-primary text-white rounded-l"
+              onClick={handleReduce}
+            >
+              -
+            </button>
+            <span className="px-3 py-2 bg-gray-200">{quantity}</span>
+            <button
+              className="px-3 py-2 bg-primary text-white rounded-r"
+              onClick={handleAdd}
+            >
+              +
+            </button>
+          </>
+        </div>
+        {error && <span className="text-red font-semibold ml-4">{error}</span>}
       </div>
-      <div className="m-3 px-5">
-        <p>
-          Price:
-          <span className="line-through font-semibold text-gray text-md m-2">
-            Rs {product?.actualPrice}
-          </span>
-          <span className="font-semibold text-primary text-md m-2">
-            Rs {product?.discountedPrice}
-          </span>
-        </p>
-        <p>
-          <span className="font-semibold text-gray text-md m-2">In Stock:</span>
-          {product?.stock}
-        </p>
-      </div>
-      <div>
-        <button onClick={handleAdd}>+</button>
-        <span>{quantity}</span>
-        <button onClick={handleReduce}>-</button>
-        {error && <span className="text-red">{error}</span>}
-      </div>
-    </>
+    </div>
   );
 };
 
