@@ -3,6 +3,7 @@ import CartDetailView from "../components/layout/detail-view/CardDetailView";
 import ProductOrderDetail from "../components/layout/detail-view/ProductOrderDetai";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound";
+import Landing from "../pages/landing/Landing";
 import Login from "../pages/registration/login/Login";
 import SignUp from "../pages/registration/signup/SignUp";
 import VendorSignUp from "../pages/registration/vendor/VendorSignUp";
@@ -15,6 +16,12 @@ const AppRoutes = [
     route: "/home",
     page: <Home />,
     role: ["user", "guest", "vendor"],
+  },
+  {
+    name: "Landing",
+    route: "/landing",
+    role: ["guest", "user", "vendor"],
+    page: <Landing />,
   },
   {
     name: "Login",
@@ -64,7 +71,7 @@ const AppRoutes = [
   {
     name: "Cart",
     route: "/cart",
-    role: ["vendor", "user"],
+    role: ["guest"],
     page: <CartDetailView />,
   },
   {

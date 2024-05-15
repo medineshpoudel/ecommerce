@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { RootState } from "../../../../app/store";
 import { addToCart } from "../../../features/user/cartSlice";
 import { ProductInterface } from "../../../interface/ProductInterface";
@@ -25,6 +26,7 @@ const ProductDetailSection = ({
 
   const handleAddToCart = (product: ProductInterface) => {
     dispatch(addToCart(product));
+    toast.success("Added To Cart");
   };
 
   return (

@@ -3,9 +3,9 @@
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
-import LoginFormFields from "./LoginFormFields";
 import LoginService from "../../../services/Login.service";
 import { LoginFormValidationSchema } from "../../../validators/LoginValidatos";
+import LoginFormFields from "./LoginFormFields";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,14 +15,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-screen">
       <div className="flex h-3/4  shadow-xl">
         <div className="w-128">
           <FormComponent
             initialValues={{ email: "", password: "" }}
             formFields={LoginFormFields}
             formTitle="Start Shopping, Login!"
-            onCancel={() => navigate("/home")}
+            onCancel={() => navigate("/landing")}
             validationSchema={LoginFormValidationSchema}
             onSubmit={onLogin}
           />

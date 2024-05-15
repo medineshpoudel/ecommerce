@@ -53,7 +53,7 @@ const FilterBar = ({ onFilter, onReset }: any) => {
   };
 
   return (
-    <div className="bg-gray-100 p-4 lg:w-1/3 xl:w-1/4 shadow-2xl h-bodyHeight">
+    <div className=" hidden md:block bg-gray-100 p-4 lg:w-1/3 xl:w-1/4 shadow-2xl h-bodyHeight bg-white">
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Filter By</h2>
         <input

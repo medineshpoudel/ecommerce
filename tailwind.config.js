@@ -10,8 +10,8 @@ export default {
   ],
   theme: {
     colors: {
-      primary: "#55c57a",
-      secondary: "#D0D0D0",
+      primary: "#e0a331",
+      secondary: "#ebeef2",
       blue: "#1fb6ff",
       pink: "#ff49db",
       orange: "#ff7849",
@@ -37,7 +37,7 @@ export default {
       },
       height: {
         headerHeight: "60px",
-        bodyHeight: "calc(100vh - 60px)",
+        bodyHeight: "calc(100vh-60px)",
         gridHeight: "calc(100vh-60px-60px)",
       },
     },

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
-import SignUpFormFields from "./SignUpFormFields";
-import { RegistrationFormValidationSchema } from "../../../validators/LoginValidatos";
 import LoginService from "../../../services/Login.service";
+import { RegistrationFormValidationSchema } from "../../../validators/LoginValidatos";
+import SignUpFormFields from "./SignUpFormFields";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const SignUp = () => {
             }}
             formFields={SignUpFormFields}
             formTitle="Start Shopping, SignUp!"
-            onCancel={() => navigate("/home")}
+            onCancel={() => navigate("/landing")}
             onSubmit={onSignUp}
             validationSchema={RegistrationFormValidationSchema}
           />

@@ -21,8 +21,10 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={` ${buttonColor ?? "bg-primary"} text-white ${
-        rounded ?? "rounnded-3xl"
+      className={` ${
+        buttonColor ?? "bg-primary"
+      } hover:outline-none border-none text-white ${
+        rounded ?? "rounded-3xl"
       }  ${style}`}
       onClick={onClick}
       type={type}
