@@ -14,9 +14,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center mt-5 h-full  ">
+    <div className="flex justify-center h-bodyHeight  md:mt-20">
       <div className="flex h-5/6  shadow-xl">
-        <div className="w-128">
+        <div className=" w-full md:w-128 ">
           <FormComponent
             initialValues={{
               email: "",
@@ -42,7 +42,7 @@ const SignUp = () => {
             </span>
           </p>
         </div>
-        <div className="flex flex-col w-96  bg-blue justify-center items-center">
+        <div className="hidden md:flex flex-col w-96  bg-blue justify-center items-center ">
           <h1 className="text-white font-semibold">{AppName}</h1>
         </div>
       </div>

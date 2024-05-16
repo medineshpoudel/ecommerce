@@ -41,8 +41,13 @@ const FilterView = ({ showSearchBar = true, children }: FilterViewProps) => {
             })
           ) : (
             <div className="flex flex-col gap-3 justify-center items-center h-full w-full font-bold">
-              <h2 className="text-red">The Filtered Data Is Not Found</h2>
-              <Button text="Reset" style="bg-red" onClick={handleReset} />
+              <h2 className="text-primary">The Filtered Data Is Not Found</h2>
+              <Button
+                text="Reset"
+                buttonColor="bg-gray"
+                style="bg-gray"
+                onClick={handleReset}
+              />
             </div>
           )}
         </div>

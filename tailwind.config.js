@@ -40,6 +40,9 @@ export default {
         bodyHeight: "calc(100vh-60px)",
         gridHeight: "calc(100vh-60px-60px)",
       },
+      marginTop: {
+        header: "60px",
+      },
     },
   },
   plugins: [],

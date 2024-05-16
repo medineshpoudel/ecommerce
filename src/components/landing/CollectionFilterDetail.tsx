@@ -21,7 +21,7 @@ const CollectionFilterDetail = ({ data }: any) => {
 
   return (
     <div className="h-full">
-      <div className="grid grid-cols-3 gap-5  min-h-128 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5  min-h-128 ">
         {data?.slice(0, 6).map((product: any) => (
           <Card
             key={product._id}

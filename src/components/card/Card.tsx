@@ -24,7 +24,7 @@ const Card = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl h-52 w-52 md:w-72 md:h-60 p-3 flex justify-between flex-col hover:cursor-pointer">
+    <div className="bg-white rounded-2xl h-52 w-72 md:w-72 md:h-60 p-3 flex justify-between flex-col hover:cursor-pointer">
       <div
         className="flex justify-between h-1/5 z-0 !important"
         onClick={onItemClick}

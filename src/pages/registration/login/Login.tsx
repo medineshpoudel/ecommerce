@@ -15,9 +15,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center h-bodyHeight !important  mt-52 md:mt-20">
       <div className="flex h-3/4  shadow-xl">
-        <div className="w-128">
+        <div className="w-full md:w-128">
           <FormComponent
             initialValues={{ email: "", password: "" }}
             formFields={LoginFormFields}
@@ -36,7 +36,7 @@ const Login = () => {
             </span>
           </p>
         </div>
-        <div className="flex flex-col w-96  bg-blue justify-center items-center">
+        <div className="hidden md:flex flex-col w-96  bg-blue justify-center items-center">
           <h1 className="text-white font-semibold">{AppName}</h1>
         </div>
       </div>

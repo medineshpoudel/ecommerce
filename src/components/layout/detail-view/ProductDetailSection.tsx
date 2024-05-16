@@ -30,11 +30,11 @@ const ProductDetailSection = ({
   };
 
   return (
-    <div className="shadow-md bg-lightGray">
+    <div className="shadow-md bg-lightGray h-auto md:h-80 mb-5 md:gap-0 py-2">
       <h2 className="text-2xl text-center font-bold m-3">
         {title.toUpperCase()}
       </h2>
-      <div className="flex flex-nowrap space-x-2">
+      <div className="flex flex-nowrap flex-col md:flex-row gap-5 space-x-2 pl-10 md:pl-5">
         {products?.map((product) => (
           <Card
             key={product._id}

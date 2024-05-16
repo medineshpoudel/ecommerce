@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import Button from "../button/Button";
 import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
+import Button from "../button/Button";
 
 export interface FieldProps {
   name: string;
@@ -108,7 +108,7 @@ const FormComponent = ({
                     <Field
                       as="select"
                       name={field.name}
-                      className="field border-2 w-full rounded-md my-2 p-1"
+                      className="field border w-full border-slate-100 rounded-md my-2 p-1"
                       disabled={field.disabled}
                       key={field.name}
                       default={field.default}
@@ -148,7 +148,7 @@ const FormComponent = ({
                           );
                         }}
                         placeholder={field.placeholder}
-                        className="field border-2 w-full rounded-md my-2 p-1"
+                        className="field border w-full border-slate-100 rounded-md my-2 p-1"
                         disabled={field.disabled}
                         key={field.name}
                       />
@@ -157,7 +157,7 @@ const FormComponent = ({
                         type={field.type ?? "text"}
                         name={field.name}
                         placeholder={field.placeholder}
-                        className="field border-2 w-full rounded-md my-2 p-1"
+                        className="field border w-full border-slate-100 rounded-md my-2 p-1"
                         disabled={field.disabled}
                         key={field.name}
                       />
@@ -173,9 +173,14 @@ const FormComponent = ({
               </div>
             ))}
           </div>
-          <div className="form-action-wrapper">
+          <div className="form-action-wrapper ">
             <Button text="Submit" type="submit" disabled={isSubmitting} />
-            <Button text="Cancel" buttonColor="bg-gray" onClick={onCancel} />
+            <Button
+              text="Cancel"
+              buttonColor="bg-gray"
+              style="ml-3"
+              onClick={onCancel}
+            />
           </div>
         </Form>
       )}

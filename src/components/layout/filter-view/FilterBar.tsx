@@ -53,11 +53,11 @@ const FilterBar = ({ onFilter, onReset }: any) => {
   };
 
   return (
-    <div className=" hidden md:block bg-gray-100 p-4 lg:w-1/3 xl:w-1/4 shadow-2xl h-bodyHeight bg-white">
+    <div className="md:block bg-gray-100 p-4 lg:w-1/3 xl:w-1/4 shadow-2xl h-bodyHeight bg-white">
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Filter By</h2>
         <input
-          className="w-full bg-white border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-gray-400"
+          className="field border w-full border-slate-100 rounded-md my-2 p-1"
           type="text"
           placeholder="Search By Title..."
           value={title}
@@ -76,7 +76,7 @@ const FilterBar = ({ onFilter, onReset }: any) => {
           name="category"
           value={category || ""}
           onChange={handleCategoryChange}
-          className="w-full bg-white border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-gray-400"
+          className="field border w-full border-slate-100 rounded-md my-2 p-1"
         >
           <option value="Mobile">Mobile</option>
           <option value="Laptop">Laptop</option>
@@ -97,7 +97,7 @@ const FilterBar = ({ onFilter, onReset }: any) => {
           placeholder="Min Price"
           value={minPrice || ""}
           onChange={(e) => setMinPrice(parseInt(e.target.value))}
-          className="w-full bg-white border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-gray-400"
+          className="field border w-full border-slate-100 rounded-md my-2 p-1"
         />
       </div>
       <div className="mb-4">
@@ -115,12 +115,12 @@ const FilterBar = ({ onFilter, onReset }: any) => {
           placeholder="Max Price"
           value={maxPrice || ""}
           onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-          className="w-full bg-white border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-gray-400"
+          className="field border w-full border-slate-100 rounded-md my-2 p-1"
         />
       </div>
       <div>
         <Button text="Search" style="mt-3 mr-2" onClick={handleFilterSubmit} />
-        <Button text="Reset" style="bg-red" onClick={handleReset} />
+        <Button text="Reset" buttonColor="bg-gray" onClick={handleReset} />
       </div>
     </div>
   );

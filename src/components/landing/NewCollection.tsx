@@ -12,7 +12,7 @@ const NewCollection = () => {
           deleniti suscipit cupiditate.
         </p>
       </div>
-      <div className="w-full flex justify-evenly mt-3">
+      <div className="w-auto flex justify-evenly mt-3">
         <FilterView showSearchBar={false}>
           <CollectionFilterDetail />
         </FilterView>
