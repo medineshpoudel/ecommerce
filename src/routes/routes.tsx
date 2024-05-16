@@ -71,7 +71,7 @@ const AppRoutes = [
   {
     name: "Cart",
     route: "/cart",
-    role: ["guest"],
+    role: ["guest", "user", "vendor"],
     page: <CartDetailView />,
   },
   {
