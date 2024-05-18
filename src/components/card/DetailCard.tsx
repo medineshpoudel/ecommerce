@@ -21,7 +21,7 @@ export const ProductViewCorners = () => (
 const DetailCard = ({
   children,
   className,
-  showCorner = true,
+  showCorner = false,
 }: {
   children: ReactNode;
   className?: string;
@@ -29,10 +29,12 @@ const DetailCard = ({
 }) => {
   return (
     <div
-      className={`flex justify-center items-center h-full w-full  overflow-hidden ${className}`}
+      className={`flex justify-center items-center h-3/5 w-full  overflow-hidden ${className}`}
     >
       {showCorner && <ProductViewCorners />}
-      <div className="h-5/6 w-5/6  shadow-lg flex relative">{children}</div>
+      <div className=" h-full w-full  shadow-lg flex flex-col md:flex-row relative  md:h-144 md:w-5/6">
+        {children}
+      </div>
     </div>
   );
 };

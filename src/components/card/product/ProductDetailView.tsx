@@ -46,7 +46,7 @@ const ProductDetailView = () => {
     <>
       <DetailCard>
         <ProductImageView product={data} />
-        <div className="h-full w-1/2 product-detail-right p-2">
+        <div className="h-full w-full md:w-1/2 product-detail-right p-2">
           <ProductDetail product={data} handleQuantity={handleQuantityChange} />
           <div className="flex w-full justify-center">
             <Button
