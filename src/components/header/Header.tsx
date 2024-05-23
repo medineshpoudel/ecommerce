@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppName, GodamLocalStorage } from "../../constants/constants";
+import { NotificationProps } from "../../interface/NotificationInterface";
+import NotificationBell from "../notification/NotificationBell";
+import NotificationCard from "../notification/NotificationCard";
 
 export interface HeaderProps {
   username?: string;
   isLoggedIn?: boolean;
   logoutHandler?: () => void;
   productsInCart?: any;
+  userNotification?: NotificationProps[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -16,12 +21,18 @@ const Header = ({
   isLoggedIn,
   logoutHandler = () => {},
   productsInCart,
+  userNotification = [],
 }: HeaderProps) => {
   const navigate = useNavigate();
+  const [toggleNotification, setToggleNotification] = useState<boolean>(false);
   const role = localStorage[GodamLocalStorage.role];
 
   const handleButtonClick = () => {
     isLoggedIn ? logoutHandler() : navigate("/login");
+  };
+
+  const handleNotificationClick = () => {
+    setToggleNotification((prevState) => !prevState);
   };
 
   return (
@@ -76,6 +87,14 @@ const Header = ({
             </span>
           </button>
         </div>
+        <NotificationBell
+          notificationCount={userNotification?.length ?? 0}
+          onNotificationClick={handleNotificationClick}
+        >
+          {toggleNotification && (
+            <NotificationCard notificationData={userNotification} />
+          )}
+        </NotificationBell>
         <button
           onClick={handleButtonClick}
           className="bg-primary text-white rounded-3xl"

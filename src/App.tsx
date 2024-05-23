@@ -10,22 +10,32 @@ import Header from "./components/header/Header";
 import { GodamLocalStorage } from "./constants/constants";
 import AppRoutes from "./routes/routes";
 import LoginService from "./services/Login.service";
+import NotifactionService from "./services/Notification.service";
 
 function App() {
   const [isLoggedIn] = useState(
     localStorage[GodamLocalStorage.acessToken] !== undefined
   );
+  const [userNotification, setUserNotification] = useState<any>();
 
   useEffect(() => {
     const validateUser = async () => {
       await LoginService.validateUserToken();
     };
-    validateUser().then((r) => r);
+    validateUser().then(() => {
+      const getUserNotification = async () => {
+        const notificaiton = await NotifactionService.getUserNotification();
+        setUserNotification(notificaiton);
+      };
+      getUserNotification();
+    });
   }, []);
 
   const handleLogout = async () => {
     await LoginService.logout();
   };
+
+  console.log(userNotification, "userrrr");
 
   return (
     <div className="App">
@@ -33,7 +43,9 @@ function App() {
         logoutHandler={handleLogout}
         username="username"
         isLoggedIn={isLoggedIn}
+        userNotification={userNotification}
       />
+
       <div className="app-content h-bodyHeight" style={{ marginTop: 60 }}>
         {isLoggedIn && (
           <Routes>

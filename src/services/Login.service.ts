@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import BaseService from "./Base.service";
 import { GodamLocalStorage } from "../constants/constants";
+import BaseService from "./Base.service";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 class LoginService extends BaseService {
