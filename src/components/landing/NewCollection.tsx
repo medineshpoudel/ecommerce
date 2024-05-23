@@ -13,7 +13,7 @@ const NewCollection = () => {
       </div>
       <div className="w-auto flex justify-evenly mt-3">
         <FilterView showSearchBar={false}>
-          <CollectionFilterDetail />
+          <CollectionFilterDetail showViewMore={true} />
         </FilterView>
       </div>
     </div>
