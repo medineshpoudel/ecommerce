@@ -29,12 +29,7 @@ const LandingBanner = () => {
       </div>
       <div className="flex flex-col md:flex-row justify-evenly h-60 z-10">
         <div className=" w-full h-full">
-          <div className="hidden md:block text-white">
-            <p>Facebook</p>
-            <p>Facebook</p>
-            <p>Facebook</p>
-          </div>
-          <div className="flex p-2  gap-10 ">
+          <div className="flex p-2 mt-10 gap-10 ">
             <div
               className="bg-primary flex justify-center items-center h-24 w-128 md:h-32 md:w-96"
               style={{ borderRadius: "50%" }}
@@ -47,10 +42,13 @@ const LandingBanner = () => {
 
             <div className="bg-blur  bg-opacity-50 backdrop-filter backdrop-blur-md bg-transparent border rounded-lg p-2 text-white">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
-                quidem at asperiores commodi eligendi quaerat veritatis
-                doloribus rerum fugiat explicabo? Minus quas molestias earum
-                dignissimos saepe tempora assumenda quisquam iste?
+                Welcome to Godam, your ultimate destination for a seamless and
+                delightful shopping experience. Discover an extensive range of
+                high-quality products, from the latest fashion trends to
+                essential home goods, all at unbeatable prices. Our
+                user-friendly interface, secure payment options, and fast
+                shipping ensure that your shopping journey is convenient and
+                enjoyable.
               </p>
             </div>
           </div>

@@ -1,4 +1,13 @@
 import Button from "../button/Button";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  faAnchor,
+  faCamera,
+  faCartShopping,
+  faLaptop,
+  faShoppingBag,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AboutGodam = () => {
   return (
@@ -14,13 +23,16 @@ const AboutGodam = () => {
         </div>
         <div className=" w-full md:w-1/2 md:gap-10 flex flex-col">
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta, hic
-            nesciunt. Voluptatum quod aut, sequi id itaque, aliquam distinctio
-            voluptates tempore ea odit sit explicabo nam. Aliquam architecto
-            doloribus excepturi, fuga porro quisquam saepe nihil nisi odit
-            obcaecati? Eveniet assumenda aspernatur accusamus expedita quos quod
-            quas inventore suscipit itaque cumque!
+            At Godam, we bring you a world of convenience right at your
+            fingertips. Explore our vast collection of top-notch products,
+            ranging from cutting-edge electronics to stylish apparel, and
+            everything in between. Our commitment to quality and customer
+            satisfaction means you can shop with confidence, knowing that every
+            purchase is backed by exceptional service. Experience the ease and
+            joy of shopping at Godam, where your needs and desires are just a
+            click away.
           </p>
+
           <div>
             <Button
               text="BECOME A VENDOR"
@@ -34,56 +46,56 @@ const AboutGodam = () => {
       <div className="h-auto flex flex-col p-3 justify-center items-center  gap-10  md:flex-row ">
         <div className=" flex flex-col md:justify-between p-3 rounded-3xl bg-secondary w-full h-52 !important px-5  md:h-5/6 md:w-1/5">
           <div className="rounded-full w-20 h-20 flex  bg-white justify-center items-center font-bold">
-            hi
+            <FontAwesomeIcon icon={faShoppingBag} />
           </div>
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem,
-              earum.
+              Godam offers an unparalleled selection of high-quality products at
+              unbeatable prices.
             </p>
           </div>
         </div>
         <div className=" flex flex-col md:justify-between p-3 rounded-3xl bg-secondary w-full h-52 !important px-5  md:h-5/6 md:w-1/5">
           <div className="rounded-full w-20 h-20 flex  bg-white justify-center items-center font-bold">
-            hi
+            <FontAwesomeIcon icon={faCartShopping} />
           </div>
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem,
-              earum.
+              Enjoy seamless navigation and a user-friendly interface tailored
+              for effortless shopping.
             </p>
           </div>
         </div>
         <div className=" flex flex-col md:justify-between p-3 rounded-3xl bg-secondary w-full h-52 !important px-5  md:h-5/6 md:w-1/5">
           <div className="rounded-full w-20 h-20 flex  bg-white justify-center items-center font-bold">
-            hi
+            <FontAwesomeIcon icon={faAnchor} />
           </div>
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem,
-              earum.
+              Benefit from fast and reliable shipping, ensuring your purchases
+              arrive on time, every time.
             </p>
           </div>
         </div>
         <div className=" flex flex-col md:justify-between p-3 rounded-3xl bg-secondary w-full h-52 !important px-5  md:h-5/6 md:w-1/5">
           <div className="rounded-full w-20 h-20 flex  bg-white justify-center items-center font-bold">
-            hi
+            <FontAwesomeIcon icon={faCamera} />
           </div>
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem,
-              earum.
+              Experience top-notch customer service, dedicated to resolving your
+              queries and concerns promptly.
             </p>
           </div>
         </div>
         <div className=" flex flex-col md:justify-between p-3 rounded-3xl bg-secondary w-full h-52 !important px-5  md:h-5/6 md:w-1/5">
           <div className="rounded-full w-20 h-20 flex  bg-white justify-center items-center font-bold">
-            hi
+            <FontAwesomeIcon icon={faLaptop} />
           </div>
           <div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem,
-              earum.
+              Shop with confidence, knowing your data is secure with our
+              advanced privacy protection measures.
             </p>
           </div>
         </div>
