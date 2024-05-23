@@ -7,7 +7,7 @@ import { ProductInterface } from "../../interface/ProductInterface";
 import Card from "../card/Card";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CollectionFilterDetail = ({ data }: any) => {
+const CollectionFilterDetail = ({ data, showViewMore = true }: any) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onDetailViewCardClick = (itemId: any) => {
@@ -31,10 +31,11 @@ const CollectionFilterDetail = ({ data }: any) => {
           />
         ))}
       </div>
-
-      <Link to="/home" className="text-primary hover:text-primary border-b-2">
-        View More
-      </Link>
+      {showViewMore && (
+        <Link to="/home" className="text-primary hover:text-primary border-b-2">
+          View More
+        </Link>
+      )}
     </div>
   );
 };

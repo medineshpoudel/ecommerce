@@ -56,27 +56,25 @@ const Header = ({
           {role === "vendor" && (
             <>
               <Link
-                className="text-black hover:text-primary"
+                className="text-black text-primary hover:text-black"
                 to="vendor/product"
               >
                 Your Products
               </Link>
               <Link
-                className="text-black hover:text-primary"
+                className="text-black text-primary hover:text-black"
                 to="vendor/product-request"
               >
                 Product Request
               </Link>
             </>
           )}
-          <Link className="text-primary hover:text-primary" to="contact">
-            HOME
-          </Link>
-          <Link className="text-primary hover:text-primary" to="about">
-            LAPTOP
-          </Link>
-          <Link className="text-primary hover:text-primary" to="privacy">
-            MOBILE
+
+          <Link
+            className="text-primary hover:text-primary hover:text-black"
+            to="home"
+          >
+            Shop
           </Link>
         </ul>
       </div>

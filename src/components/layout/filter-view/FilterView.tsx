@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import useAppQuery from "../../../hooks/useAppQuery";
 import Button from "../../button/Button";
+import CollectionFilterDetail from "../../landing/CollectionFilterDetail";
 import SearchBar from "../../search-bar/SearchBar";
 import FilterBar from "./FilterBar";
 
@@ -26,21 +27,27 @@ const FilterView = ({ showSearchBar = true, children }: FilterViewProps) => {
     setQueryUrl(undefined);
   };
 
+  const handleSearch = (title: string) => {
+    title ? setQueryUrl(`?title=${title}`) : setQueryUrl(undefined);
+  };
+
   return (
     <div className="filter-view p-3">
       {showSearchBar && (
-        <SearchBar productsInCart={cart} handleSearch={() => {}} />
+        <SearchBar productsInCart={cart} handleSearch={handleSearch} />
       )}
       <div className="flex flex-col lg:flex-row">
         <FilterBar onFilter={handleFilterSubmit} onReset={handleReset} />
         <div className="p-4 w-full">
-          {data?.length ? (
+          {data?.length && !queryUrl ? (
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             React.cloneElement(children as React.ReactElement<any>, {
               data: data,
             })
+          ) : data?.length && queryUrl ? (
+            <CollectionFilterDetail data={data} showViewMore={false} />
           ) : (
-            <div className="flex flex-col gap-3 justify-center items-center h-full w-full font-bold">
+            <div className="flex flex-col gap-3 justify-center items-center h-auto w-full font-bold">
               <h2 className="text-primary">The Filtered Data Is Not Found</h2>
               <Button
                 text="Reset"
