@@ -31,8 +31,13 @@ const Header = ({
     isLoggedIn ? logoutHandler() : navigate("/login");
   };
 
-  const handleNotificationClick = () => {
+  const handleNotificationBellClick = () => {
     setToggleNotification((prevState) => !prevState);
+  };
+
+  const handleNotificationClick = (id?: string) => {
+    setToggleNotification(false);
+    navigate(`/user-product-order/${id}`);
   };
 
   return (
@@ -89,10 +94,13 @@ const Header = ({
         </div>
         <NotificationBell
           notificationCount={userNotification?.length ?? 0}
-          onNotificationClick={handleNotificationClick}
+          onNotificationClick={handleNotificationBellClick}
         >
           {toggleNotification && (
-            <NotificationCard notificationData={userNotification} />
+            <NotificationCard
+              notificationData={userNotification}
+              onNotificationClick={handleNotificationClick}
+            />
           )}
         </NotificationBell>
         <button

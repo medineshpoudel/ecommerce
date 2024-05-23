@@ -1,6 +1,7 @@
 import ProductDetail from "../components/card/product/ProductDetailView";
 import CartDetailView from "../components/layout/detail-view/CardDetailView";
 import ProductOrderDetail from "../components/layout/detail-view/ProductOrderDetai";
+import UserProductDetail from "../components/layout/detail-view/UserProductDetail";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound";
 import Landing from "../pages/landing/Landing";
@@ -79,6 +80,12 @@ const AppRoutes = [
     route: "/product-order/:id",
     role: ["vendor", "user"],
     page: <ProductOrderDetail />,
+  },
+  {
+    name: "User Product Order",
+    route: "/user-product-order/:id",
+    role: ["vendor", "user"],
+    page: <UserProductDetail />,
   },
 ];
 

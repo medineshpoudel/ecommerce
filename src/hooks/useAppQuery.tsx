@@ -3,13 +3,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { ActionHandlerActions } from "../constants/constants";
+import { ToastMessage } from "../constants/staticList";
 import {
   addMutation,
   deleteMutation,
   fetchData,
   updateMutation,
 } from "../helpers/tanstackQueryMutations";
-import { ToastMessage } from "../constants/staticList";
 
 export interface UseAppProps {
   query: string;

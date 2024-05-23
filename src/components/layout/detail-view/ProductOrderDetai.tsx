@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import ProductOrderCard from "../../card/product/ProductOrderCard";
-import { RootState } from "../../../../app/store";
-import useAppQuery from "../../../hooks/useAppQuery";
-import { ActionHandlerActions } from "../../../constants/constants";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { RootState } from "../../../../app/store";
+import { ActionHandlerActions } from "../../../constants/constants";
 import { ToastMessage } from "../../../constants/staticList";
+import useAppQuery from "../../../hooks/useAppQuery";
+import ProductOrderCard from "../../card/product/ProductOrderCard";
 
 const ProductOrderDetail = () => {
   const navigate = useNavigate();

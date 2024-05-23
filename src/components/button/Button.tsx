@@ -15,7 +15,7 @@ const Button = ({
   rounded = true,
   onClick,
   type,
-  disabled,
+  disabled = false,
   buttonColor,
   style,
 }: ButtonProps) => {
@@ -23,9 +23,9 @@ const Button = ({
     <button
       className={` ${
         buttonColor ?? "bg-primary"
-      } hover:outline-none border-none text-white ${
-        rounded ?? "rounded-3xl"
-      }  ${style}`}
+      } hover:outline-none border-none text-white
+       
+      ${rounded ?? "rounded-3xl"}  ${style}  ${disabled && "bg-secondary"}`}
       onClick={onClick}
       type={type}
       disabled={disabled}

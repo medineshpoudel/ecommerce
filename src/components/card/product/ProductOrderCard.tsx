@@ -5,17 +5,28 @@ import DetailCard from "../DetailCard";
 const UserProductOrderDetail = ({
   className,
   product,
+  showConfirmOder = true,
+  showOrderStatus = false,
+  showActionButton = false,
   handleConfirmOrder,
+  handleOrderEdit = () => {},
+  handleOrderDelete = () => {},
 }: {
   className: string;
   product: any;
+  showConfirmOder?: boolean;
+  showOrderStatus?: boolean;
+  showActionButton?: boolean;
   handleConfirmOrder: () => void;
+  handleOrderEdit?: () => void;
+  handleOrderDelete?: () => void;
 }) => {
+  console.log();
   return (
     <div className={className}>
       <div className="w-3/5 h-4/5">
         <h2 className="text-xl font-bold my-3 text-primary">Product Detail</h2>
-        <div className="flex-2 bg-primary">
+        <div className="flex-2">
           <img src={product?.image} className="h-40 w-full" />
         </div>
         <div className="flex-1  p-2">
@@ -29,13 +40,32 @@ const UserProductOrderDetail = ({
           <p className="text-gray-600 mb-2">
             <span className="font-bold">Quantity: </span> {product?.quantity}
           </p>
+          {showOrderStatus && (
+            <p className="text-gray-600 mb-2">
+              <span className="font-bold">Status: </span> {product?.status}
+            </p>
+          )}
+
           <hr />
           <p className="text-gray-600">
             <span className="font-bold text-primary">Total Amount: </span>Rs
             {product?.totalAmount}
           </p>
         </div>
-        <Button text="Confirm Order" onClick={handleConfirmOrder} />
+        {showActionButton && (
+          <>
+            <Button text="Edit" onClick={handleOrderEdit} />
+            <Button
+              disabled={product.status[0] === "Pending" ? true : false}
+              text="Delete"
+              style="mx-2 bg-red"
+              onClick={handleOrderDelete}
+            />
+          </>
+        )}
+        {showConfirmOder && (
+          <Button text="Confirm Order" onClick={handleConfirmOrder} />
+        )}
       </div>
     </div>
   );
@@ -70,7 +100,17 @@ const ProductOrderVendorDetail = ({
   );
 };
 
-const ProductOrderCard = ({ product, vendor, handleConfirmOrder }: any) => {
+const ProductOrderCard = ({
+  product,
+  vendor,
+  showVendorDetail = true,
+  handleConfirmOrder,
+  showConfirmOder = true,
+  showOrderStatus = false,
+  showActionButton = false,
+  handleOrderEdit = () => {},
+  handleOrderDelete = () => {},
+}: any) => {
   const handleOrder = () => {
     handleConfirmOrder(product?.productId);
   };
@@ -79,13 +119,22 @@ const ProductOrderCard = ({ product, vendor, handleConfirmOrder }: any) => {
     <DetailCard showCorner={false} className="flex-col">
       <UserProductOrderDetail
         product={product}
+        showConfirmOder={showConfirmOder}
+        showOrderStatus={showOrderStatus}
+        showActionButton={showActionButton}
         handleConfirmOrder={handleOrder}
-        className="h-full flex-1 p-2 flex justify-center items-center border-r-2"
+        className={`h-full flex-1 p-2 flex justify-center items-center ${
+          showVendorDetail ?? "border-r-2"
+        }`}
+        handleOrderDelete={handleOrderDelete}
+        handleOrderEdit={handleOrderEdit}
       />
-      <ProductOrderVendorDetail
-        vendor={vendor}
-        className="h-full flex-1 p-2 flex justify-center items-center "
-      />
+      {showVendorDetail && (
+        <ProductOrderVendorDetail
+          vendor={vendor}
+          className="h-full flex-1 p-2 flex justify-center items-center "
+        />
+      )}
     </DetailCard>
   );
 };

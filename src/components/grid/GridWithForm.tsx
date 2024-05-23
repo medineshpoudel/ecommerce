@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react";
-import Grid from "./Grid";
+import { ActionHandlerActions } from "../../constants/constants";
 import { ModalContext } from "../../context/ModalProvider";
 import FormComponent from "../form/Form";
-import { ActionHandlerActions } from "../../constants/constants";
+import Grid from "./Grid";
 
 export interface GridWithFormProps {
   data: any;
@@ -30,7 +30,6 @@ const GridWithForm = ({
   };
 
   const onFormEdit = (dataToEdit: any) => {
-    console.log(dataToEdit);
     onActionHandler({ action: ActionHandlerActions.Update, item: dataToEdit });
     closeModal();
   };
