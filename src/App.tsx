@@ -5,7 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { RootState } from "../app/store";
 import Header from "./components/header/Header";
 import { GodamLocalStorage } from "./constants/constants";
 import AppRoutes from "./routes/routes";
@@ -13,6 +15,7 @@ import LoginService from "./services/Login.service";
 import NotifactionService from "./services/Notification.service";
 
 function App() {
+  const cart = useSelector((state: RootState) => state.cart);
   const [isLoggedIn] = useState(
     localStorage[GodamLocalStorage.acessToken] !== undefined
   );
@@ -35,8 +38,6 @@ function App() {
     await LoginService.logout();
   };
 
-  console.log(userNotification, "userrrr");
-
   return (
     <div className="App">
       <Header
@@ -44,6 +45,7 @@ function App() {
         username="username"
         isLoggedIn={isLoggedIn}
         userNotification={userNotification}
+        productsInCart={cart.length}
       />
 
       <div className="app-content h-bodyHeight" style={{ marginTop: 60 }}>

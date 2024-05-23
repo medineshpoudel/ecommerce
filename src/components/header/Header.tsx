@@ -12,7 +12,7 @@ export interface HeaderProps {
   username?: string;
   isLoggedIn?: boolean;
   logoutHandler?: () => void;
-  productsInCart?: any;
+  productsInCart?: number;
   userNotification?: NotificationProps[];
 }
 
@@ -83,7 +83,7 @@ const Header = ({
           >
             <FontAwesomeIcon icon={faCartShopping} />
             <span className="absolute bottom-3 font-bold">
-              {productsInCart?.length}
+              {productsInCart}
             </span>
           </button>
         </div>

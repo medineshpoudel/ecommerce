@@ -1,8 +1,8 @@
-import DetailCard from "../DetailCard";
-import { ProductInterface } from "../../../interface/ProductInterface";
-import CartCard from "./CartCard";
-import Button from "../../button/Button";
 import { useNavigate } from "react-router-dom";
+import { ProductInterface } from "../../../interface/ProductInterface";
+import Button from "../../button/Button";
+import DetailCard from "../DetailCard";
+import CartCard from "./CartCard";
 
 export interface CardViewProps {
   productsInCart: Array<ProductInterface>;
@@ -16,14 +16,20 @@ const CartView = ({
   onRemoveProductFromCart,
 }: CardViewProps) => {
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleGoBack = () => {
+    navigate("/home");
+  };
+
   return (
     <DetailCard>
       {!productsInCart.length && (
-        <div className=" absolute left-80 top-10 ">
+        <div className=" w-full  h-full m-10">
           <span className="text-red font-bold text-3xl mr-3">
             No Products Added in Cart
           </span>
-          <Button onClick={() => navigate("/home")} text="Go Back" />
+          <Button onClick={handleGoBack} text="Go Home" />
         </div>
       )}
       <div className="h-full w-full z-50 flex  flex-col gap-5 p-5 pl-10 overflow-auto">
