@@ -4,6 +4,7 @@ const ProductGridColumns = [
   { field: "discountedPrice", filter: true, floatingFilter: true },
   { field: "productType", filter: true, floatingFilter: true },
   { field: "stock", filter: true, floatingFilter: true },
+  { field: "totalSold", filter: true, floatingFilter: true },
   { field: "feature_1", filter: true, floatingFilter: true },
   { field: "feature_2", filter: true, floatingFilter: true },
   { field: "feature_3", filter: true, floatingFilter: true },
