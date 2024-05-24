@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../../../components/form/Form";
 import { AppName } from "../../../constants/constants";
-import VendorSignUpFormFields from "./VendorSignUpFormFields";
 import LoginService from "../../../services/Login.service";
+import VendorSignUpFormFields from "./VendorSignUpFormFields";
 
 const VendorSignUp = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSignUp = async (userData: any) => {
     const signUpData = { ...userData, role: ["vendor"] };
+    console.log(signUpData);
+    // eslint-disable-next-line no-debugger
+    debugger;
+
     await LoginService.signup(signUpData);
   };
   return (

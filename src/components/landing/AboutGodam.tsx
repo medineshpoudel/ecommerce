@@ -8,8 +8,12 @@ import {
   faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import { GodamLocalStorage } from "../../constants/constants";
 
 const AboutGodam = () => {
+  const navigate = useNavigate();
+  const userRole = localStorage.getItem(GodamLocalStorage.role);
   return (
     <div className="flex flex-col h-auto justify-between md:px-10">
       <div className="flex flex-col w-full justify-between p-3 md:p-10 h-3/6  sm:flex-col sm:p-0 sm:w-full xl:flex-row">
@@ -34,11 +38,14 @@ const AboutGodam = () => {
           </p>
 
           <div>
-            <Button
-              text="BECOME A VENDOR"
-              style="text-black mt-5 md:mt-3"
-              rounded={false}
-            />
+            {!userRole && (
+              <Button
+                text="BECOME A VENDOR"
+                style="text-black mt-5 md:mt-3"
+                rounded={false}
+                onClick={() => navigate("/vendor/signup")}
+              />
+            )}
           </div>
         </div>
       </div>
